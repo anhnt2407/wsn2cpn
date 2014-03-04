@@ -1,0 +1,3303 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE workspaceElements PUBLIC "-//CPN//DTD CPNXML 1.0//EN" "http://www.daimi.au.dk/~cpntools/bin/DTD/6/cpn.dtd">
+
+<workspaceElements>
+  <generator tool="CPN Tools"
+             version="2.3.4"
+             format="6"/>
+  <cpnet>
+    <globbox>
+      <block id="ID1">
+        <id>Standard declarations</id>
+        <color id="ID85042">
+          <id>UNIT</id>
+          <unit/>
+          <layout>colset UNIT = unit;</layout>
+        </color>
+        <color id="ID3">
+          <id>INT</id>
+          <int/>
+        </color>
+        <color id="ID9566911">
+          <id>INT_LIST</id>
+          <list>
+            <id>INT</id>
+          </list>
+          <layout>colset INT_LIST = list INT;</layout>
+        </color>
+        <color id="ID4">
+          <id>BOOL</id>
+          <bool/>
+        </color>
+        <color id="ID5">
+          <id>STRING</id>
+          <string/>
+        </color>
+        <var id="ID9358819">
+          <type>
+            <id>INT</id>
+          </type>
+          <id>i</id>
+          <layout>var i : INT;</layout>
+        </var>
+      </block>
+      <block id="ID9354440">
+        <id>Node Functions</id>
+        <color id="ID9353596">
+          <id>NODE_TYPE</id>
+          <enum>
+            <id>ALL</id>
+            <id>BS</id>
+            <id>NODE</id>
+            <id>CH</id>
+          </enum>
+          <layout>colset NODE_TYPE = with
+   ALL | BS | NODE | CH;</layout>
+        </color>
+        <color id="ID9387984">
+          <id>MOTE</id>
+          <record>
+            <recordfield>
+              <id>id</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>nodeType</id>
+              <id>NODE_TYPE</id>
+            </recordfield>
+            <recordfield>
+              <id>range</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>X</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>Y</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>isDead</id>
+              <id>BOOL</id>
+            </recordfield>
+          </record>
+          <layout>colset MOTE = record
+   id : INT
+* nodeType : NODE_TYPE
+* range : INT
+* X : INT
+* Y : INT
+* isDead : BOOL;</layout>
+        </color>
+        <color id="ID9429865">
+          <id>MOTE_LIST</id>
+          <list>
+            <id>MOTE</id>
+          </list>
+          <layout>colset MOTE_LIST = list MOTE;</layout>
+        </color>
+        <globref id="ID9392410">
+          <id>nodeList</id>
+          <ml>nil : MOTE list</ml>
+          <layout>globref nodeList = nil : MOTE list;</layout>
+        </globref>
+        <ml id="ID9428861">fun newNode( id : INT ) =
+(
+  {
+    id = id ,
+    nodeType = NODE ,
+    range = 200,
+    X = 0 ,
+    Y = 0 
+  }
+);
+          <layout>fun newNode( id : INT ) =
+(
+  {
+    id = id ,
+    nodeType = NODE ,
+    range = 200,
+    X = 0 ,
+    Y = 0 
+  }
+);</layout>
+        </ml>
+        <ml id="ID9434159">fun getNode( i : INT ) =
+(
+  List.nth ( !nodeList , i  - 1 )
+);
+          <layout>fun getNode( i : INT ) =
+(
+  List.nth ( !nodeList , i  - 1 )
+);</layout>
+        </ml>
+        <ml id="ID9428948">fun addNode( n : MOTE ) =
+(
+  nodeList := ins (!nodeList) n
+);
+          <layout>fun addNode( n : MOTE ) =
+(
+  nodeList := ins (!nodeList) n
+);</layout>
+        </ml>
+        <ml id="ID9702467">fun updateNode_( i : INT , n : MOTE ) =
+let
+  val nOLD = getNode ( i );
+  val hasNext = i &lt; length (!nodeList);
+in
+  if ( i = #id n andalso hasNext ) then
+     n :: updateNode_( i + 1 , n )
+  else if( i  = #id n ) then
+    [ n ]
+  else if ( hasNext ) then
+    nOLD :: updateNode_( i + 1 , n )
+  else
+   [ nOLD ]
+end;
+          <layout>fun updateNode_( i : INT , n : MOTE ) =
+let
+  val nOLD = getNode ( i );
+  val hasNext = i &lt; length (!nodeList);
+in
+  if ( i = #id n andalso hasNext ) then
+     n :: updateNode_( i + 1 , n )
+  else if( i  = #id n ) then
+    [ n ]
+  else if ( hasNext ) then
+    nOLD :: updateNode_( i + 1 , n )
+  else
+   [ nOLD ]
+end;</layout>
+        </ml>
+        <ml id="ID9698793">fun updateNode( n : MOTE ) = 
+(
+  nodeList := updateNode_( 1 , n )
+);
+          <layout>fun updateNode( n : MOTE ) = 
+(
+  nodeList := updateNode_( 1 , n )
+);</layout>
+        </ml>
+        <ml id="ID9701001">fun updateNodeDead( n : MOTE ) =
+let
+  val n1 = MOTE.set_isDead n true;
+in
+  updateNode( n1 )
+end;
+          <layout>fun updateNodeDead( n : MOTE ) =
+let
+  val n1 = MOTE.set_isDead n true;
+in
+  updateNode( n1 )
+end;</layout>
+        </ml>
+        <ml id="ID9434704">fun getNodeSize() =
+(
+  length (!nodeList)
+);
+          <layout>fun getNodeSize() =
+(
+  length (!nodeList)
+);</layout>
+        </ml>
+        <block id="ID11740916">
+          <id>Many Topologies</id>
+          <ml id="ID9429062">fun createNodes() =
+(
+  nodeList := nil;
+
+  addNode( {id = 1 , isDead = false, nodeType = BS   , range = 200 , X = 50, Y = 50 });
+  addNode( {id = 2 , isDead = false, nodeType = NODE , range = 200 , X = 36 , Y = 17 });
+  addNode( {id = 3 , isDead = false, nodeType = NODE , range = 200 , X = 81, Y = 29 });
+  addNode( {id = 4 , isDead = false, nodeType = NODE , range = 200 , X = 5, Y = 47 });
+  addNode( {id = 5 , isDead =  false, nodeType = NODE , range = 200 , X = 56, Y = 6 });
+  addNode( {id = 6 , isDead = false, nodeType = NODE , range = 200 , X = 90, Y = 55 });
+  addNode( {id = 7 , isDead = false, nodeType = NODE , range = 200 , X = 77, Y = 47 });
+  addNode( {id = 8 , isDead = false, nodeType = NODE , range = 200 , X = 52, Y = 77 });
+  addNode( {id = 9 , isDead = false, nodeType = NODE , range = 200 , X = 37, Y = 32 });
+  addNode( {id = 10, isDead = false, nodeType = NODE , range = 200 , X = 16, Y = 34 });
+  addNode( {id = 11, isDead = false, nodeType = NODE , range = 200 , X = 24, Y = 69 });
+  addNode( {id = 12, isDead = false, nodeType = NODE , range = 200 , X = 73, Y = 29 });
+  addNode( {id = 13, isDead = false, nodeType = NODE , range = 200 , X = 39, Y = 13 });
+  addNode( {id = 14, isDead = false, nodeType = NODE , range = 200 , X = 35, Y = 27 });
+  addNode( {id = 15, isDead = false, nodeType = NODE , range = 200 , X = 75, Y = 93 });
+  addNode( {id = 16, isDead = false, nodeType = NODE , range = 200 , X = 48, Y = 3 });
+  addNode( {id = 17, isDead = false, nodeType = NODE , range = 200 , X = 58, Y = 67 });
+  addNode( {id = 18, isDead = false, nodeType = NODE , range = 200 , X = 89, Y = 28 });
+  addNode( {id = 19, isDead = false, nodeType = NODE , range = 200 , X = 67, Y = 5 });
+  addNode( {id = 20, isDead = false, nodeType = NODE , range = 200 , X = 80, Y = 48 })
+);
+            <layout>fun createNodes() =
+(
+  nodeList := nil;
+
+  addNode( {id = 1 , isDead = false, nodeType = BS   , range = 200 , X = 50, Y = 50 });
+  addNode( {id = 2 , isDead = false, nodeType = NODE , range = 200 , X = 36 , Y = 17 });
+  addNode( {id = 3 , isDead = false, nodeType = NODE , range = 200 , X = 81, Y = 29 });
+  addNode( {id = 4 , isDead = false, nodeType = NODE , range = 200 , X = 5, Y = 47 });
+  addNode( {id = 5 , isDead =  false, nodeType = NODE , range = 200 , X = 56, Y = 6 });
+  addNode( {id = 6 , isDead = false, nodeType = NODE , range = 200 , X = 90, Y = 55 });
+  addNode( {id = 7 , isDead = false, nodeType = NODE , range = 200 , X = 77, Y = 47 });
+  addNode( {id = 8 , isDead = false, nodeType = NODE , range = 200 , X = 52, Y = 77 });
+  addNode( {id = 9 , isDead = false, nodeType = NODE , range = 200 , X = 37, Y = 32 });
+  addNode( {id = 10, isDead = false, nodeType = NODE , range = 200 , X = 16, Y = 34 });
+  addNode( {id = 11, isDead = false, nodeType = NODE , range = 200 , X = 24, Y = 69 });
+  addNode( {id = 12, isDead = false, nodeType = NODE , range = 200 , X = 73, Y = 29 });
+  addNode( {id = 13, isDead = false, nodeType = NODE , range = 200 , X = 39, Y = 13 });
+  addNode( {id = 14, isDead = false, nodeType = NODE , range = 200 , X = 35, Y = 27 });
+  addNode( {id = 15, isDead = false, nodeType = NODE , range = 200 , X = 75, Y = 93 });
+  addNode( {id = 16, isDead = false, nodeType = NODE , range = 200 , X = 48, Y = 3 });
+  addNode( {id = 17, isDead = false, nodeType = NODE , range = 200 , X = 58, Y = 67 });
+  addNode( {id = 18, isDead = false, nodeType = NODE , range = 200 , X = 89, Y = 28 });
+  addNode( {id = 19, isDead = false, nodeType = NODE , range = 200 , X = 67, Y = 5 });
+  addNode( {id = 20, isDead = false, nodeType = NODE , range = 200 , X = 80, Y = 48 })
+);</layout>
+          </ml>
+        </block>
+      </block>
+      <block id="ID9440393">
+        <id>Packet Functions</id>
+        <globref id="ID9441165">
+          <id>packetSize</id>
+          <ml>2000</ml>
+          <layout>globref packetSize = 2000;</layout>
+        </globref>
+        <color id="ID9441723">
+          <id>PACKET_TYPE</id>
+          <enum>
+            <id>CONTROL</id>
+            <id>APP</id>
+          </enum>
+          <layout>colset PACKET_TYPE = with 
+  CONTROL 
+| APP;</layout>
+        </color>
+        <color id="ID9440631">
+          <id>PACKET</id>
+          <record>
+            <recordfield>
+              <id>profile_id</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>from</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>to</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>destination</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>range</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>processBy</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>hop</id>
+              <id>INT</id>
+            </recordfield>
+          </record>
+          <layout>colset PACKET = record
+   profile_id : INT
+* from : INT
+* to : INT
+* destination : INT
+* range : INT
+* processBy : INT
+* hop :  INT;</layout>
+        </color>
+        <color id="ID9575496">
+          <id>PACKET_LIST</id>
+          <list>
+            <id>PACKET</id>
+          </list>
+          <layout>colset PACKET_LIST = list PACKET;</layout>
+        </color>
+        <var id="ID9442773">
+          <type>
+            <id>PACKET_LIST</id>
+          </type>
+          <id>p_list</id>
+          <id>p_list2</id>
+          <layout>var p_list , p_list2 : PACKET_LIST;</layout>
+        </var>
+        <ml id="ID9441491">fun newPacket( profileID : INT , from : INT , to : INT ) =
+(
+  {
+    profile_id = profileID,
+    from = from ,
+    to = to ,
+    destination = to,
+    processBy = 0,
+    range = 0,
+    hop = 1
+  }
+);
+          <layout>fun newPacket( profileID : INT , from : INT , to : INT ) =
+(
+  {
+    profile_id = profileID,
+    from = from ,
+    to = to ,
+    destination = to,
+    processBy = 0,
+    range = 0,
+    hop = 1
+  }
+);</layout>
+        </ml>
+        <ml id="ID9573623">fun setProcessBy( p : PACKET ) =
+(
+  PACKET.set_processBy p (#to p)
+);
+          <layout>fun setProcessBy( p : PACKET ) =
+(
+  PACKET.set_processBy p (#to p)
+);</layout>
+        </ml>
+      </block>
+      <block id="ID38">
+        <id>Energy Table</id>
+        <globref id="ID9680519">
+          <id>battery</id>
+          <ml>1.0 : real</ml>
+          <layout>globref battery = 1.0 : real;</layout>
+        </globref>
+        <globref id="ID39">
+          <id>energyList</id>
+          <ml>nil : real list</ml>
+          <layout>globref energyList = nil : real list;</layout>
+        </globref>
+        <globref id="ID9678925">
+          <id>deadNodeList</id>
+          <ml>nil : INT list</ml>
+          <layout>globref deadNodeList = nil : INT list;</layout>
+        </globref>
+        <ml id="ID9679601">fun isNodeDead( id : INT , e : real ) =
+let
+  val n = getNode( id );
+in
+   if ( !battery &lt; e  andalso 
+        #nodeType n &lt;&gt; BS  andalso
+        #isDead n = false ) then 
+    (
+       deadNodeList := ins (!deadNodeList) id;
+       updateNodeDead( n )
+    )
+   else ()
+end;
+          <layout>fun isNodeDead( id : INT , e : real ) =
+let
+  val n = getNode( id );
+in
+   if ( !battery &lt; e  andalso 
+        #nodeType n &lt;&gt; BS  andalso
+        #isDead n = false ) then 
+    (
+       deadNodeList := ins (!deadNodeList) id;
+       updateNodeDead( n )
+    )
+   else ()
+end;</layout>
+        </ml>
+        <ml id="ID40">fun getEnergy( id:int ) =
+(
+   List.nth ( !energyList , id - 1 )
+);
+          <layout>fun getEnergy( id:int ) =
+(
+   List.nth ( !energyList , id - 1 )
+);</layout>
+        </ml>
+        <ml id="ID41">fun setEnergy_( i: int , id:int , v:real ) =
+(
+  if ( length (!energyList) = i )
+      then []
+  else if ( id - 1 = i )
+      then v::setEnergy_( i + 1 , id , v )
+  else
+      getEnergy( i + 1 )::setEnergy_( i + 1 , id , v )
+);
+          <layout>fun setEnergy_( i: int , id:int , v:real ) =
+(
+  if ( length (!energyList) = i )
+      then []
+  else if ( id - 1 = i )
+      then v::setEnergy_( i + 1 , id , v )
+  else
+      getEnergy( i + 1 )::setEnergy_( i + 1 , id , v )
+);</layout>
+        </ml>
+        <ml id="ID42">fun setEnergy( id : INT , value:real ) =
+(
+  energyList := setEnergy_(  0 , id , value );
+  isNodeDead( id , value )
+);
+          <layout>fun setEnergy( id : INT , value:real ) =
+(
+  energyList := setEnergy_(  0 , id , value );
+  isNodeDead( id , value )
+);</layout>
+        </ml>
+        <ml id="ID9701613">fun createEnergys( i : INT ) =
+(
+   energyList := ins (!energyList) 0.0;
+
+   if ( i + 1 &lt; length (!nodeList) ) then
+      createEnergys( i + 1 )
+   else ( )
+);
+          <layout>fun createEnergys( i : INT ) =
+(
+   energyList := ins (!energyList) 0.0;
+
+   if ( i + 1 &lt; length (!nodeList) ) then
+      createEnergys( i + 1 )
+   else ( )
+);</layout>
+        </ml>
+        <ml id="ID9791587">fun getNodeDead() = 
+(
+  length (!deadNodeList)
+);
+          <layout>fun getNodeDead() = 
+(
+  length (!deadNodeList)
+);</layout>
+        </ml>
+        <ml id="ID9796699">fun countNodeNotBS( i : INT ) =
+let
+  val n = getNode( i );
+  val hasNext = i &lt; length ( !nodeList );
+in
+  if ( #nodeType n = BS andalso hasNext ) then
+     countNodeNotBS( i + 1 )
+  else if ( #nodeType n = BS ) then
+     0
+  else if ( hasNext ) then
+     1 + countNodeNotBS( i + 1 )
+  else
+     1
+end;
+          <layout>fun countNodeNotBS( i : INT ) =
+let
+  val n = getNode( i );
+  val hasNext = i &lt; length ( !nodeList );
+in
+  if ( #nodeType n = BS andalso hasNext ) then
+     countNodeNotBS( i + 1 )
+  else if ( #nodeType n = BS ) then
+     0
+  else if ( hasNext ) then
+     1 + countNodeNotBS( i + 1 )
+  else
+     1
+end;</layout>
+        </ml>
+        <ml id="ID9796797">fun allNodeIsDead() =
+(
+  getNodeDead() = countNodeNotBS( 1 )
+);
+          <layout>fun allNodeIsDead() =
+(
+  getNodeDead() = countNodeNotBS( 1 )
+);</layout>
+        </ml>
+      </block>
+      <block id="ID66">
+        <id>Energy Calc</id>
+        <globref id="ID11734471">
+          <id>eTX</id>
+          <ml>50E~9</ml>
+          <layout>globref eTX = 50E~9;</layout>
+        </globref>
+        <globref id="ID11734670">
+          <id>eRX</id>
+          <ml>50E~9</ml>
+          <layout>globref eRX = 50E~9;</layout>
+        </globref>
+        <globref id="ID11734756">
+          <id>eAMP</id>
+          <ml>100E~12</ml>
+          <layout>globref eAMP = 100E~12;</layout>
+        </globref>
+        <ml id="ID11738702">fun calcEnergyTX( p : PACKET ) =
+let
+  val k = real ( !packetSize );
+  val range = real (#range p * #range p);
+in
+   ( !eTX * k ) +
+   ( !eAMP * k *  range )
+end;
+          <layout>fun calcEnergyTX( p : PACKET ) =
+let
+  val k = real ( !packetSize );
+  val range = real (#range p * #range p);
+in
+   ( !eTX * k ) +
+   ( !eAMP * k *  range )
+end;</layout>
+        </ml>
+        <ml id="ID11739564">fun calcEnergyRX() =
+(
+   !eRX * real( !packetSize )
+);
+          <layout>fun calcEnergyRX() =
+(
+   !eRX * real( !packetSize )
+);</layout>
+        </ml>
+        <block id="ID11736245">
+          <id>Old Functions</id>
+          <globref id="ID67">
+            <id>volt</id>
+            <ml>3.0 : real</ml>
+            <layout>globref volt = 3.0 : real;</layout>
+          </globref>
+          <globref id="ID9560358">
+            <id>bandwidth</id>
+            <ml>250000</ml>
+            <layout>globref bandwidth = 250000;</layout>
+          </globref>
+          <globref id="ID9560577">
+            <id>tx</id>
+            <ml>17E~3</ml>
+            <layout>globref tx = 17E~3;</layout>
+          </globref>
+          <globref id="ID9561710">
+            <id>rx</id>
+            <ml>16E~3</ml>
+            <layout>globref rx = 16E~3;</layout>
+          </globref>
+          <globref id="ID9562253">
+            <id>listen</id>
+            <ml>8E~3</ml>
+            <layout>globref listen = 8E~3;</layout>
+          </globref>
+          <globref id="ID9560768">
+            <id>cpu</id>
+            <ml>8E~3</ml>
+            <layout>globref cpu = 8E~3;</layout>
+          </globref>
+          <ml id="ID9798088">fun getTX( range : real ) =
+(
+   if (  range &lt; 34.0 ) then 11E~3
+   else if ( range &lt; 68.0 ) then 14E~3
+   else 17.4E~3
+);
+            <layout>fun getTX( range : real ) =
+(
+   if (  range &lt; 34.0 ) then 11E~3
+   else if ( range &lt; 68.0 ) then 14E~3
+   else 17.4E~3
+);</layout>
+          </ml>
+          <ml id="ID68">fun calcTimeTXorRX() =
+let
+  val packet_size = real (!packetSize);
+  val radio_bandwidth = real (!bandwidth);
+in
+  packet_size / radio_bandwidth
+end;
+            <layout>fun calcTimeTXorRX() =
+let
+  val packet_size = real (!packetSize);
+  val radio_bandwidth = real (!bandwidth);
+in
+  packet_size / radio_bandwidth
+end;</layout>
+          </ml>
+          <ml id="ID69">fun calcEnergyTX_old( n : PACKET ) =
+let
+   val radio_range = real ( #range n ) ;
+   val radio_tx = getTX( radio_range );
+   val cpu = !cpu;
+   val power = !volt * radio_tx;
+   val radio_amp = !eAMP;
+   val bit = real(!packetSize);
+   val energyToSend = ( power * calcTimeTXorRX() );
+   val energyToDistance = ( radio_amp * bit * radio_range * radio_range );
+in
+   energyToSend
+end;
+            <layout>fun calcEnergyTX_old( n : PACKET ) =
+let
+   val radio_range = real ( #range n ) ;
+   val radio_tx = getTX( radio_range );
+   val cpu = !cpu;
+   val power = !volt * radio_tx;
+   val radio_amp = !eAMP;
+   val bit = real(!packetSize);
+   val energyToSend = ( power * calcTimeTXorRX() );
+   val energyToDistance = ( radio_amp * bit * radio_range * radio_range );
+in
+   energyToSend
+end;</layout>
+          </ml>
+          <ml id="ID70">fun calcEnergyRX_old () =
+let
+  val radio_rx = !rx;
+  val cpu = !cpu;
+  val power = !volt * radio_rx;
+in
+  power * calcTimeTXorRX()
+end;
+            <layout>fun calcEnergyRX_old () =
+let
+  val radio_rx = !rx;
+  val cpu = !cpu;
+  val power = !volt * radio_rx;
+in
+  power * calcTimeTXorRX()
+end;</layout>
+          </ml>
+          <ml id="ID71">fun calcEnergyListen( time:real ) =
+let
+  val listen = !listen;
+in
+  !volt * listen * time
+end;
+            <layout>fun calcEnergyListen( time:real ) =
+let
+  val listen = !listen;
+in
+  !volt * listen * time
+end;</layout>
+          </ml>
+          <ml id="ID72">fun calcEnergyCPU( t:real ) =
+let
+  val listen = !listen;
+  val cpu = !cpu;
+in
+  !volt * (listen + cpu) * t
+end;
+            <layout>fun calcEnergyCPU( t:real ) =
+let
+  val listen = !listen;
+  val cpu = !cpu;
+in
+  !volt * (listen + cpu) * t
+end;</layout>
+          </ml>
+        </block>
+      </block>
+      <block id="ID74">
+        <id>Neighbor Table</id>
+        <color id="ID18">
+          <id>ROUTING</id>
+          <record>
+            <recordfield>
+              <id>destination</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>neighbor</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>cost</id>
+              <id>INT</id>
+            </recordfield>
+          </record>
+          <layout>colset ROUTING = record
+       destination:INT
+    * neighbor:INT
+    * cost:INT;</layout>
+        </color>
+        <ml id="ID32">fun euclideanDistance( from:MOTE , to:MOTE ) =
+let
+  val X = real (#X from - #X to)
+  val Y = real (#Y from - #Y to)
+  val d = Math.sqrt ( X*X + Y*Y )
+in
+   d
+end;
+          <layout>fun euclideanDistance( from:MOTE , to:MOTE ) =
+let
+  val X = real (#X from - #X to)
+  val Y = real (#Y from - #Y to)
+  val d = Math.sqrt ( X*X + Y*Y )
+in
+   d
+end;</layout>
+        </ml>
+        <ml id="ID76">fun isNeighbor( from: MOTE , to:MOTE ) =
+let
+   val d = euclideanDistance( from , to )
+in
+  if( d &lt; real (#range from)  andalso 
+      #isDead to = false ) then true
+  else false
+end;
+          <layout>fun isNeighbor( from: MOTE , to:MOTE ) =
+let
+   val d = euclideanDistance( from , to )
+in
+  if( d &lt; real (#range from)  andalso 
+      #isDead to = false ) then true
+  else false
+end;</layout>
+        </ml>
+        <ml id="ID77">fun isReceive( p:PACKET, id:INT ) =
+let
+  val nFrom = List.nth( !nodeList , #from p - 1 )
+  val node = List.nth( !nodeList , id - 1 )
+in
+   if((#from p) = id) then false
+   else if( isNeighbor( nFrom , node ) ) then true
+   else false
+end;
+          <layout>fun isReceive( p:PACKET, id:INT ) =
+let
+  val nFrom = List.nth( !nodeList , #from p - 1 )
+  val node = List.nth( !nodeList , id - 1 )
+in
+   if((#from p) = id) then false
+   else if( isNeighbor( nFrom , node ) ) then true
+   else false
+end;</layout>
+        </ml>
+        <ml id="ID78">fun createNeighborList( p:PACKET, id:int , list:INT_LIST ) =
+let
+   val list2 = [id] : INT_LIST;
+in
+   if(  isReceive( p , id ) ) then list^^list2
+   else list
+end;
+          <layout>fun createNeighborList( p:PACKET, id:int , list:INT_LIST ) =
+let
+   val list2 = [id] : INT_LIST;
+in
+   if(  isReceive( p , id ) ) then list^^list2
+   else list
+end;</layout>
+        </ml>
+        <ml id="ID79">fun addNeighborList( p:PACKET , id:int , size:int , list:INT_LIST ) =
+let
+    val list2 = createNeighborList( p , id , list );
+in
+  if( id &lt; size ) then
+     addNeighborList( p , id+1 , size , list )^^list2
+  else list2
+end;
+          <layout>fun addNeighborList( p:PACKET , id:int , size:int , list:INT_LIST ) =
+let
+    val list2 = createNeighborList( p , id , list );
+in
+  if( id &lt; size ) then
+     addNeighborList( p , id+1 , size , list )^^list2
+  else list2
+end;</layout>
+        </ml>
+        <ml id="ID80">fun getNeighborList( p:PACKET ) =
+let
+   val size = length (!nodeList);
+in
+   addNeighborList( p , 1 , size , nil )
+end;
+          <layout>fun getNeighborList( p:PACKET ) =
+let
+   val size = length (!nodeList);
+in
+   addNeighborList( p , 1 , size , nil )
+end;</layout>
+        </ml>
+        <ml id="ID81">fun getNeighbor( node:int ) =
+(
+   {destination=1,neighbor=1,cost=1}
+);
+          <layout>fun getNeighbor( node:int ) =
+(
+   {destination=1,neighbor=1,cost=1}
+);</layout>
+        </ml>
+        <ml id="ID82">fun cost( n1:int , n2:int ) =
+let
+   val N1 = List.nth( !nodeList , n1  - 1 );
+   val N2 = List.nth( !nodeList , n2 - 1 );
+   val d = euclideanDistance( N1 , N2 );
+   val r  = {destination=n2,neighbor=n2,cost=0};
+in
+   if( d &lt; 40.0 ) then
+      1
+   else if( d &lt; 45.0 ) then
+      2
+   else if( d &lt; 50.0 ) then
+      3
+   else
+      999
+end;
+          <layout>fun cost( n1:int , n2:int ) =
+let
+   val N1 = List.nth( !nodeList , n1  - 1 );
+   val N2 = List.nth( !nodeList , n2 - 1 );
+   val d = euclideanDistance( N1 , N2 );
+   val r  = {destination=n2,neighbor=n2,cost=0};
+in
+   if( d &lt; 40.0 ) then
+      1
+   else if( d &lt; 45.0 ) then
+      2
+   else if( d &lt; 50.0 ) then
+      3
+   else
+      999
+end;</layout>
+        </ml>
+      </block>
+      <block id="ID9351530">
+        <id>Profile Functions</id>
+        <color id="ID9352758">
+          <id>PROFILE</id>
+          <record>
+            <recordfield>
+              <id>nodeType</id>
+              <id>NODE_TYPE</id>
+            </recordfield>
+            <recordfield>
+              <id>maxTime</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>seconds</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>packet</id>
+              <id>PACKET</id>
+            </recordfield>
+            <recordfield>
+              <id>id</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>start</id>
+              <id>INT</id>
+            </recordfield>
+          </record>
+          <layout>colset PROFILE = record
+   nodeType : NODE_TYPE
+* maxTime : INT
+* seconds : INT
+* packet : PACKET
+* id : INT
+* start : INT;</layout>
+        </color>
+        <color id="ID9395639">
+          <id>PROFILE_LIST</id>
+          <list>
+            <id>PROFILE</id>
+          </list>
+          <layout>colset PROFILE_LIST = list PROFILE;</layout>
+        </color>
+        <var id="ID9394334">
+          <type>
+            <id>PROFILE_LIST</id>
+          </type>
+          <id>s</id>
+          <layout>var s : PROFILE_LIST;</layout>
+        </var>
+        <color id="ID9429546">
+          <id>SxN</id>
+          <record>
+            <recordfield>
+              <id>profile</id>
+              <id>PROFILE</id>
+            </recordfield>
+            <recordfield>
+              <id>nodes</id>
+              <id>MOTE_LIST</id>
+            </recordfield>
+          </record>
+          <layout>colset SxN = record
+   profile : PROFILE
+* nodes : MOTE_LIST;</layout>
+        </color>
+        <color id="ID9438012">
+          <id>SxN_LIST</id>
+          <list>
+            <id>SxN</id>
+          </list>
+          <layout>colset SxN_LIST = list SxN;</layout>
+        </color>
+        <var id="ID9438486">
+          <type>
+            <id>SxN_LIST</id>
+          </type>
+          <id>sn_list</id>
+          <layout>var sn_list : SxN_LIST;</layout>
+        </var>
+        <globref id="ID9362535">
+          <id>profileList</id>
+          <ml>nil : PROFILE list</ml>
+          <layout>globref profileList = nil : PROFILE list;</layout>
+        </globref>
+        <block id="ID9782540">
+          <id>Existing Profiles</id>
+          <block id="ID9618994">
+            <id>Profile Default</id>
+            <ml id="ID11695155">fun shouldSend000( s : PROFILE , n : MOTE ) =
+(
+  #nodeType n = #nodeType s 
+  orelse 
+  #nodeType s = ALL
+);
+              <layout>fun shouldSend000( s : PROFILE , n : MOTE ) =
+(
+  #nodeType n = #nodeType s 
+  orelse 
+  #nodeType s = ALL
+);</layout>
+            </ml>
+            <ml id="ID9452748">fun clonePacket000( p : PACKET , n : MOTE ) =
+let
+  val p = PACKET.set_from p (#id n);
+  val p1 = PACKET.set_range p (#range n);
+in
+  p1
+end;
+              <layout>fun clonePacket000( p : PACKET , n : MOTE ) =
+let
+  val p = PACKET.set_from p (#id n);
+  val p1 = PACKET.set_range p (#range n);
+in
+  p1
+end;</layout>
+            </ml>
+            <ml id="ID9620415">fun willRoute000( p : PACKET , n : MOTE ) =
+(
+  false
+);
+              <layout>fun willRoute000( p : PACKET , n : MOTE ) =
+(
+  false
+);</layout>
+            </ml>
+            <ml id="ID9621149">fun processPacket000( p : PACKET , n : MOTE ) =
+(
+   PACKET.set_hop p (#hop p + 1)
+);
+              <layout>fun processPacket000( p : PACKET , n : MOTE ) =
+(
+   PACKET.set_hop p (#hop p + 1)
+);</layout>
+            </ml>
+          </block>
+          <block id="ID9613227">
+            <id>Profile 001</id>
+            <globref id="ID9686403">
+              <id>probability_route</id>
+              <ml>0.01 : real</ml>
+              <layout>globref probability_route = 0.01 : real;</layout>
+            </globref>
+            <globref id="ID9691727">
+              <id>max_hop</id>
+              <ml>5</ml>
+              <layout>globref max_hop = 5;</layout>
+            </globref>
+            <ml id="ID9446558">fun clonePacket001( p : PACKET , n : MOTE ) =
+let
+   val p1 = clonePacket000( p , n );
+in
+  PACKET.set_to p1 0
+end;
+              <layout>fun clonePacket001( p : PACKET , n : MOTE ) =
+let
+   val p1 = clonePacket000( p , n );
+in
+  PACKET.set_to p1 0
+end;</layout>
+            </ml>
+            <ml id="ID9616979">fun willRoute001( p : PACKET , n : MOTE ) =
+let
+   val prob = uniform( 0.0 , 1.0 );
+in
+   if ( #to p = #id n ) then false
+   else if ( prob &lt; !probability_route 
+                andalso #hop p &lt; !max_hop ) then true
+   else false
+end;
+              <layout>fun willRoute001( p : PACKET , n : MOTE ) =
+let
+   val prob = uniform( 0.0 , 1.0 );
+in
+   if ( #to p = #id n ) then false
+   else if ( prob &lt; !probability_route 
+                andalso #hop p &lt; !max_hop ) then true
+   else false
+end;</layout>
+            </ml>
+            <ml id="ID9615993">fun processPacket001( p : PACKET , n : MOTE ) =
+( 
+   processPacket000( p , n )
+);
+              <layout>fun processPacket001( p : PACKET , n : MOTE ) =
+( 
+   processPacket000( p , n )
+);</layout>
+            </ml>
+          </block>
+          <block id="ID9614728">
+            <id>Profile 002</id>
+            <ml id="ID9449098">fun clonePacket002( p : PACKET , n : MOTE ) =
+(
+  clonePacket000( p , n )
+);
+              <layout>fun clonePacket002( p : PACKET , n : MOTE ) =
+(
+  clonePacket000( p , n )
+);</layout>
+            </ml>
+            <ml id="ID9623024">fun willRoute002( p : PACKET , n : MOTE ) =
+(
+  false
+);
+              <layout>fun willRoute002( p : PACKET , n : MOTE ) =
+(
+  false
+);</layout>
+            </ml>
+            <ml id="ID9623800">fun processPacket002( p : PACKET , n : MOTE ) =
+(
+  p
+);
+              <layout>fun processPacket002( p : PACKET , n : MOTE ) =
+(
+  p
+);</layout>
+            </ml>
+          </block>
+        </block>
+        <block id="ID9625376">
+          <id>Generic Functions</id>
+          <ml id="ID11695037">fun shouldSend ( s : PROFILE , n : MOTE ) =
+(
+   shouldSend000 ( s , n )
+);
+            <layout>fun shouldSend ( s : PROFILE , n : MOTE ) =
+(
+   shouldSend000 ( s , n )
+);</layout>
+          </ml>
+          <ml id="ID9450592">fun clonePacket( s : PROFILE , n : MOTE ) =
+(
+   if ( #id s = 1 ) then 
+    clonePacket001( #packet s , n )
+   else if ( #id s = 2 ) then
+    clonePacket002( #packet s , n )
+   else
+    clonePacket000( #packet s , n )
+);
+            <layout>fun clonePacket( s : PROFILE , n : MOTE ) =
+(
+   if ( #id s = 1 ) then 
+    clonePacket001( #packet s , n )
+   else if ( #id s = 2 ) then
+    clonePacket002( #packet s , n )
+   else
+    clonePacket000( #packet s , n )
+);</layout>
+          </ml>
+          <ml id="ID9627001">fun willRoute( p : PACKET , n : MOTE ) =
+(
+   if ( #profile_id p = 1 ) then
+     willRoute001( p , n )
+   else if ( #profile_id p = 2 ) then
+     willRoute002( p , n )
+   else
+     willRoute000( p , n )
+);
+            <layout>fun willRoute( p : PACKET , n : MOTE ) =
+(
+   if ( #profile_id p = 1 ) then
+     willRoute001( p , n )
+   else if ( #profile_id p = 2 ) then
+     willRoute002( p , n )
+   else
+     willRoute000( p , n )
+);</layout>
+          </ml>
+          <ml id="ID9630387">fun processPacket( p : PACKET , n : MOTE ) =
+(
+   if( #profile_id p = 1 ) then
+     processPacket001( p , n )
+   else if ( #profile_id p = 2 ) then
+     processPacket002( p , n )
+   else
+    processPacket000( p , n )
+);
+            <layout>fun processPacket( p : PACKET , n : MOTE ) =
+(
+   if( #profile_id p = 1 ) then
+     processPacket001( p , n )
+   else if ( #profile_id p = 2 ) then
+     processPacket002( p , n )
+   else
+    processPacket000( p , n )
+);</layout>
+          </ml>
+        </block>
+        <ml id="ID9363503">fun addProfile( s : PROFILE ) =
+(
+   profileList := ins (!profileList) s
+);
+          <layout>fun addProfile( s : PROFILE ) =
+(
+   profileList := ins (!profileList) s
+);</layout>
+        </ml>
+        <ml id="ID11696866">fun checkTime( s : PROFILE , t : INT ) =
+let
+  val max_time   = #start s + (#seconds s * #maxTime s);
+  val timeIsOk    = t mod (#seconds s) = #start s;
+  val hasNoLimit = #maxTime s &gt;= 9999;
+  val lessThanLimit = t &lt;= max_time orelse hasNoLimit;
+in
+  if ( #start s = t ) then true
+  else if ( timeIsOk andalso lessThanLimit ) then true
+  else false
+end;
+          <layout>fun checkTime( s : PROFILE , t : INT ) =
+let
+  val max_time   = #start s + (#seconds s * #maxTime s);
+  val timeIsOk    = t mod (#seconds s) = #start s;
+  val hasNoLimit = #maxTime s &gt;= 9999;
+  val lessThanLimit = t &lt;= max_time orelse hasNoLimit;
+in
+  if ( #start s = t ) then true
+  else if ( timeIsOk andalso lessThanLimit ) then true
+  else false
+end;</layout>
+        </ml>
+        <ml id="ID9364976">fun getProfileList( t : INT , i : INT ) =
+let
+  val s                  = List.nth( !profileList , i );
+  val max_time    = (#seconds s) * (#maxTime s);
+  val thereIsNext = i + 1 &lt; length (!profileList);
+  val timeIsOK     = checkTime( s  , t );
+in
+  if( timeIsOK andalso thereIsNext ) then
+    s::getProfileList( t , i + 1 )
+ else if( timeIsOK ) then
+    s::[]
+  else if ( thereIsNext ) then
+   getProfileList( t , i + 1 )
+  else []
+end;
+          <layout>fun getProfileList( t : INT , i : INT ) =
+let
+  val s                  = List.nth( !profileList , i );
+  val max_time    = (#seconds s) * (#maxTime s);
+  val thereIsNext = i + 1 &lt; length (!profileList);
+  val timeIsOK     = checkTime( s  , t );
+in
+  if( timeIsOK andalso thereIsNext ) then
+    s::getProfileList( t , i + 1 )
+ else if( timeIsOK ) then
+    s::[]
+  else if ( thereIsNext ) then
+   getProfileList( t , i + 1 )
+  else []
+end;</layout>
+        </ml>
+        <ml id="ID9373794">fun createProfiles() =
+(
+  profileList := nil;
+
+  addProfile( {id=1,start=0,nodeType=NODE,maxTime=9999,seconds=2,packet=newPacket(1,0,1)} );
+  addProfile( {id=2,start=0,nodeType=BS,maxTime=0,seconds=1,packet=newPacket(2,0,0)} )
+);
+          <layout>fun createProfiles() =
+(
+  profileList := nil;
+
+  addProfile( {id=1,start=0,nodeType=NODE,maxTime=9999,seconds=2,packet=newPacket(1,0,1)} );
+  addProfile( {id=2,start=0,nodeType=BS,maxTime=0,seconds=1,packet=newPacket(2,0,0)} )
+);</layout>
+        </ml>
+        <ml id="ID9432400">fun newSxN( s : PROFILE , n : MOTE_LIST ) =
+(
+  { profile = s , nodes = n }
+);
+          <layout>fun newSxN( s : PROFILE , n : MOTE_LIST ) =
+(
+  { profile = s , nodes = n }
+);</layout>
+        </ml>
+        <ml id="ID9430097">fun selectNode_( s : PROFILE , i : INT ) =
+let
+  val isOK = shouldSend ( s , getNode( i+ 1 ) );
+  val n = getNode( i + 1 );
+  val isOK2 = isOK andalso #isDead n = false;
+in
+  if( isOK2 andalso i + 1 &lt; getNodeSize() ) then
+    n::selectNode_( s , i + 1 )
+  else if ( isOK2 ) then
+   [n]
+  else if( i + 1 &lt; getNodeSize() ) then
+   selectNode_( s , i + 1 )
+  else
+   []
+end;
+          <layout>fun selectNode_( s : PROFILE , i : INT ) =
+let
+  val isOK = shouldSend ( s , getNode( i+ 1 ) );
+  val n = getNode( i + 1 );
+  val isOK2 = isOK andalso #isDead n = false;
+in
+  if( isOK2 andalso i + 1 &lt; getNodeSize() ) then
+    n::selectNode_( s , i + 1 )
+  else if ( isOK2 ) then
+   [n]
+  else if( i + 1 &lt; getNodeSize() ) then
+   selectNode_( s , i + 1 )
+  else
+   []
+end;</layout>
+        </ml>
+        <ml id="ID9429203">fun selectNode( l : PROFILE_LIST , i : INT ) =
+let
+  val s = List.nth( l , i );
+  val nodes = selectNode_( s , 0 );
+in
+  if ( List.null nodes = false andalso i + 1 &lt; length l ) then
+    newSxN( s , nodes )::selectNode( l , i + 1 )
+  else if( List.null nodes = false ) then
+    [ newSxN( s , nodes ) ]
+  else if( i + 1 &lt; length l ) then
+    selectNode( l , i + 1 )
+  else []
+end;
+          <layout>fun selectNode( l : PROFILE_LIST , i : INT ) =
+let
+  val s = List.nth( l , i );
+  val nodes = selectNode_( s , 0 );
+in
+  if ( List.null nodes = false andalso i + 1 &lt; length l ) then
+    newSxN( s , nodes )::selectNode( l , i + 1 )
+  else if( List.null nodes = false ) then
+    [ newSxN( s , nodes ) ]
+  else if( i + 1 &lt; length l ) then
+    selectNode( l , i + 1 )
+  else []
+end;</layout>
+        </ml>
+        <ml id="ID9455391">fun createPacketList( s : PROFILE , l : MOTE_LIST , i : INT ) =
+let
+  val n = List.nth( l , i );
+  val p = clonePacket( s , n );
+in
+  if ( i + 1 &lt; length l ) then p::createPacketList( s , l , i + 1 )
+  else [p]
+end;
+          <layout>fun createPacketList( s : PROFILE , l : MOTE_LIST , i : INT ) =
+let
+  val n = List.nth( l , i );
+  val p = clonePacket( s , n );
+in
+  if ( i + 1 &lt; length l ) then p::createPacketList( s , l , i + 1 )
+  else [p]
+end;</layout>
+        </ml>
+      </block>
+      <block id="ID9430707">
+        <id>General Functions</id>
+        <globref id="ID9418724">
+          <id>timeGlobal</id>
+          <ml>0 : INT</ml>
+          <layout>globref timeGlobal = 0 : INT;</layout>
+        </globref>
+        <globref id="ID9418725">
+          <id>timeNext</id>
+          <ml>0 : INT</ml>
+          <layout>globref timeNext = 0 : INT;</layout>
+        </globref>
+        <globref id="ID9418726">
+          <id>timeInterval</id>
+          <ml>0 : INT</ml>
+          <layout>globref timeInterval = 0 : INT;</layout>
+        </globref>
+        <ml id="ID9795427">fun initVariables() =
+(
+   energyList := nil;
+   deadNodeList:= nil
+);
+          <layout>fun initVariables() =
+(
+   energyList := nil;
+   deadNodeList:= nil
+);</layout>
+        </ml>
+        <ml id="ID9427931">fun initNetwork() =
+(
+  timeGlobal := 1;
+
+  initVariables();
+
+  createNodes();
+  createProfiles();
+  createEnergys( 0 )
+);
+          <layout>fun initNetwork() =
+(
+  timeGlobal := 1;
+
+  initVariables();
+
+  createNodes();
+  createProfiles();
+  createEnergys( 0 )
+);</layout>
+        </ml>
+      </block>
+      <block id="ID9431355">
+        <id>Action Code Functions</id>
+        <ml id="ID9431241">fun getNodeList( t : INT ) =
+let
+  val l = getProfileList( t , 0 );
+in
+  if( List.null l ) then nil
+  else selectNode( l , 0 )
+end;
+          <layout>fun getNodeList( t : INT ) =
+let
+  val l = getProfileList( t , 0 );
+in
+  if( List.null l ) then nil
+  else selectNode( l , 0 )
+end;</layout>
+        </ml>
+        <ml id="ID9454187">fun getPacketList( l : SxN_LIST , i : INT ) =
+let
+  val sn = List.nth( l , i );
+  val pl = createPacketList( #profile sn , #nodes sn , 0 );
+in
+  if ( i + 1 &lt; length l ) then 
+    pl^^getPacketList( l , i + 1 )
+  else 
+    pl
+end;
+          <layout>fun getPacketList( l : SxN_LIST , i : INT ) =
+let
+  val sn = List.nth( l , i );
+  val pl = createPacketList( #profile sn , #nodes sn , 0 );
+in
+  if ( i + 1 &lt; length l ) then 
+    pl^^getPacketList( l , i + 1 )
+  else 
+    pl
+end;</layout>
+        </ml>
+        <ml id="ID9596764">fun createPackets( t : INT ) =
+let
+  val snl = getNodeList( t );
+in
+  if ( List.null snl ) then nil
+  else getPacketList( snl , 0 )
+end;
+          <layout>fun createPackets( t : INT ) =
+let
+  val snl = getNodeList( t );
+in
+  if ( List.null snl ) then nil
+  else getPacketList( snl , 0 )
+end;</layout>
+        </ml>
+        <ml id="ID9577111">fun sendPackets( l : PACKET_LIST , i : INT ) =
+let
+  val p = List.nth ( l , i );
+  val node_id = #from p;
+  val energy = calcEnergyTX( p ) + getEnergy( node_id );
+in
+  setEnergy( node_id , energy ); 
+
+  if( i + 1 &lt; length l ) then sendPackets( l , i + 1 )
+  else ()
+end;
+          <layout>fun sendPackets( l : PACKET_LIST , i : INT ) =
+let
+  val p = List.nth ( l , i );
+  val node_id = #from p;
+  val energy = calcEnergyTX( p ) + getEnergy( node_id );
+in
+  setEnergy( node_id , energy ); 
+
+  if( i + 1 &lt; length l ) then sendPackets( l , i + 1 )
+  else ()
+end;</layout>
+        </ml>
+        <ml id="ID9600222">fun duplicatePacket( p : PACKET ) =
+let
+  val l = getNeighborList( p );
+in
+  map (fn a=&gt; PACKET.set_processBy p a) l
+end;
+          <layout>fun duplicatePacket( p : PACKET ) =
+let
+  val l = getNeighborList( p );
+in
+  map (fn a=&gt; PACKET.set_processBy p a) l
+end;</layout>
+        </ml>
+        <ml id="ID9573217">fun duplicatePackets( l : PACKET_LIST , i : INT ) =
+let
+   val p = List.nth ( l , i );
+   val hasNext = i + 1 &lt; length l;
+in
+  if ( #to p = 0 andalso hasNext ) then
+    duplicatePacket( p )^^duplicatePackets( l , i + 1 )
+  else if ( #to p = 0 ) then
+    duplicatePacket( p )
+  else if ( #to p &lt;&gt; 0 andalso hasNext ) then
+    setProcessBy( p )::duplicatePackets( l , i + 1 )
+  else if ( #to p &lt;&gt; 0 ) then
+    [ setProcessBy( p ) ]
+  else if ( hasNext ) then
+    duplicatePackets( l , i + 1 )
+  else []
+end;
+          <layout>fun duplicatePackets( l : PACKET_LIST , i : INT ) =
+let
+   val p = List.nth ( l , i );
+   val hasNext = i + 1 &lt; length l;
+in
+  if ( #to p = 0 andalso hasNext ) then
+    duplicatePacket( p )^^duplicatePackets( l , i + 1 )
+  else if ( #to p = 0 ) then
+    duplicatePacket( p )
+  else if ( #to p &lt;&gt; 0 andalso hasNext ) then
+    setProcessBy( p )::duplicatePackets( l , i + 1 )
+  else if ( #to p &lt;&gt; 0 ) then
+    [ setProcessBy( p ) ]
+  else if ( hasNext ) then
+    duplicatePackets( l , i + 1 )
+  else []
+end;</layout>
+        </ml>
+        <ml id="ID9605402">fun receivePackets( l : PACKET_LIST , i : INT ) =
+let
+  val p = List.nth( l , i );
+  val node_id = #processBy p;
+  val energy = calcEnergyRX() + getEnergy( node_id );
+in
+  setEnergy( node_id , energy );
+
+  if ( i + 1 &lt; length l ) then receivePackets( l , i + 1 )
+  else ()
+end;
+          <layout>fun receivePackets( l : PACKET_LIST , i : INT ) =
+let
+  val p = List.nth( l , i );
+  val node_id = #processBy p;
+  val energy = calcEnergyRX() + getEnergy( node_id );
+in
+  setEnergy( node_id , energy );
+
+  if ( i + 1 &lt; length l ) then receivePackets( l , i + 1 )
+  else ()
+end;</layout>
+        </ml>
+        <ml id="ID9637241">fun processPackets( l : PACKET_LIST , i : INT ) =
+let
+  val p = List.nth ( l , i );
+  val n = getNode( #processBy p );
+  val will = willRoute( p , n ) andalso 
+                #isDead n = false;
+  val hasNext = i + 1 &lt; length l;
+  val p2 = processPacket( p , n );
+in
+  if ( will andalso hasNext ) then
+     p2::processPackets( l , i + 1 )
+  else if ( will ) then
+     [ p2 ]
+  else if( hasNext ) then
+     processPackets( l , i + 1 )
+  else
+     []
+end;
+          <layout>fun processPackets( l : PACKET_LIST , i : INT ) =
+let
+  val p = List.nth ( l , i );
+  val n = getNode( #processBy p );
+  val will = willRoute( p , n ) andalso 
+                #isDead n = false;
+  val hasNext = i + 1 &lt; length l;
+  val p2 = processPacket( p , n );
+in
+  if ( will andalso hasNext ) then
+     p2::processPackets( l , i + 1 )
+  else if ( will ) then
+     [ p2 ]
+  else if( hasNext ) then
+     processPackets( l , i + 1 )
+  else
+     []
+end;</layout>
+        </ml>
+      </block>
+    </globbox>
+    <page id="ID6">
+      <pageattr name="Network"/>
+      <place id="ID9324859">
+        <posattr x="-111.000000"
+                 y="290.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <text>start_01</text>
+        <ellipse w="88.000000"
+                 h="64.000000"/>
+        <token x="-10.000000"
+               y="0.000000"/>
+        <marking x="0.000000"
+                 y="0.000000"
+                 hidden="false">
+          <snap snap_id="0"
+                anchor.horizontal="0"
+                anchor.vertical="0"/>
+        </marking>
+        <type id="ID9324860">
+          <posattr x="-154.500000"
+                   y="257.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4">INT</text>
+        </type>
+        <initmark id="ID9777670">
+          <posattr x="-45.000000"
+                   y="322.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4"/>
+        </initmark>
+      </place>
+      <place id="ID9324957">
+        <posattr x="209.000000"
+                 y="127.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <text>end_01</text>
+        <ellipse w="60.000000"
+                 h="40.000000"/>
+        <token x="-10.000000"
+               y="0.000000"/>
+        <marking x="0.000000"
+                 y="0.000000"
+                 hidden="false">
+          <snap snap_id="0"
+                anchor.horizontal="0"
+                anchor.vertical="0"/>
+        </marking>
+        <type id="ID9324958">
+          <posattr x="243.500000"
+                   y="103.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4">INT</text>
+        </type>
+        <initmark id="ID9324959">
+          <posattr x="265.000000"
+                   y="150.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4"/>
+        </initmark>
+      </place>
+      <place id="ID9343800">
+        <posattr x="-111.000000"
+                 y="-588.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <text>process</text>
+        <ellipse w="60.000000"
+                 h="40.000000"/>
+        <token x="-10.000000"
+               y="0.000000"/>
+        <marking x="0.000000"
+                 y="0.000000"
+                 hidden="false">
+          <snap snap_id="0"
+                anchor.horizontal="0"
+                anchor.vertical="0"/>
+        </marking>
+        <type id="ID9343801">
+          <posattr x="-44.500000"
+                   y="-611.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4">PACKET_LIST</text>
+        </type>
+        <initmark id="ID9343802">
+          <posattr x="-54.000000"
+                   y="-564.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4"/>
+        </initmark>
+      </place>
+      <place id="ID9439658">
+        <posattr x="-111.000000"
+                 y="-23.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <text>packets to
+send</text>
+        <ellipse w="88.000000"
+                 h="66.000000"/>
+        <token x="-10.000000"
+               y="0.000000"/>
+        <marking x="-4.000000"
+                 y="-9.000000"
+                 hidden="false">
+          <snap snap_id="9"
+                anchor.horizontal="1"
+                anchor.vertical="3"/>
+        </marking>
+        <type id="ID9439659">
+          <posattr x="-35.500000"
+                   y="-56.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4">PACKET_LIST</text>
+        </type>
+        <initmark id="ID9439660">
+          <posattr x="-45.000000"
+                   y="10.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4"/>
+        </initmark>
+      </place>
+      <place id="ID9534800">
+        <posattr x="-111.000000"
+                 y="-300.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <text>Environment</text>
+        <ellipse w="122.000000"
+                 h="108.000000"/>
+        <token x="-10.000000"
+               y="0.000000"/>
+        <marking x="0.000000"
+                 y="0.000000"
+                 hidden="false">
+          <snap snap_id="0"
+                anchor.horizontal="0"
+                anchor.vertical="0"/>
+        </marking>
+        <type id="ID9534801">
+          <posattr x="-23.500000"
+                   y="-348.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4">PACKET_LIST</text>
+        </type>
+        <initmark id="ID9534802">
+          <posattr x="-33.000000"
+                   y="-251.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4"/>
+        </initmark>
+      </place>
+      <place id="ID9771349">
+        <posattr x="-111.000000"
+                 y="556.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <text>init</text>
+        <ellipse w="88.000000"
+                 h="60.000000"/>
+        <token x="-10.000000"
+               y="0.000000"/>
+        <marking x="0.000000"
+                 y="0.000000"
+                 hidden="false">
+          <snap snap_id="0"
+                anchor.horizontal="0"
+                anchor.vertical="0"/>
+        </marking>
+        <type id="ID9771350">
+          <posattr x="-66.500000"
+                   y="524.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4">INT</text>
+        </type>
+        <initmark id="ID9771351">
+          <posattr x="-73.000000"
+                   y="587.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4">1</text>
+        </initmark>
+      </place>
+      <trans id="ID9324879"
+             explicit="false">
+        <posattr x="-111.000000"
+                 y="127.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <text>Which nodes
+want to send?</text>
+        <box w="112.000000"
+             h="40.000000"/>
+        <binding x="7.200000"
+                 y="-3.000000"/>
+        <cond id="ID9324880">
+          <posattr x="-176.000000"
+                   y="158.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4"/>
+        </cond>
+        <time id="ID9324881">
+          <posattr x="-40.500000"
+                   y="158.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4"/>
+        </time>
+        <code id="ID9324882">
+          <posattr x="34.500000"
+                   y="82.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4">input ( i );
+output ( p_list );
+action( createPackets( i ) );</text>
+        </code>
+        <channel id="ID9324883">
+          <posattr x="-200.500000"
+                   y="127.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4"/>
+        </channel>
+      </trans>
+      <trans id="ID9324902"
+             explicit="false">
+        <posattr x="209.000000"
+                 y="290.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <text>increment
+time</text>
+        <box w="96.000000"
+             h="40.000000"/>
+        <binding x="7.200000"
+                 y="-3.000000"/>
+        <cond id="ID9324903">
+          <posattr x="152.000000"
+                   y="321.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4"/>
+        </cond>
+        <time id="ID9324904">
+          <posattr x="271.500000"
+                   y="321.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4"/>
+        </time>
+        <code id="ID9324905">
+          <posattr x="323.000000"
+                   y="290.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4">input ( i ); 
+action
+(
+  timeGlobal := i + 1
+);</text>
+        </code>
+        <channel id="ID9324906">
+          <posattr x="127.500000"
+                   y="290.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4"/>
+        </channel>
+      </trans>
+      <trans id="ID9328800"
+             explicit="false">
+        <posattr x="-111.000000"
+                 y="-731.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <text>Are there packet
+to router?</text>
+        <box w="112.000000"
+             h="58.000000"/>
+        <binding x="7.200000"
+                 y="-3.000000"/>
+        <cond id="ID9328801">
+          <posattr x="-176.000000"
+                   y="-691.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4"/>
+        </cond>
+        <time id="ID9328802">
+          <posattr x="-40.500000"
+                   y="-691.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4"/>
+        </time>
+        <code id="ID9328803">
+          <posattr x="-51.000000"
+                   y="-813.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4">input ( p_list );
+output ( p_list2 );
+action
+( 
+  if ( List.null p_list ) then nil
+  else processPackets( p_list , 0 ) 
+);</text>
+        </code>
+        <channel id="ID9328804">
+          <posattr x="-200.500000"
+                   y="-731.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4"/>
+        </channel>
+      </trans>
+      <trans id="ID9339966"
+             explicit="false">
+        <posattr x="-111.000000"
+                 y="-458.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <text>receive packets</text>
+        <box w="110.000000"
+             h="40.000000"/>
+        <binding x="7.200000"
+                 y="-3.000000"/>
+        <cond id="ID9339967">
+          <posattr x="-175.000000"
+                   y="-427.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4"/>
+        </cond>
+        <time id="ID9339968">
+          <posattr x="-41.500000"
+                   y="-427.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4"/>
+        </time>
+        <code id="ID9609948">
+          <posattr x="50.000000"
+                   y="-458.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4">input ( p_list );
+action
+(
+  if ( List.null p_list ) then ()
+  else receivePackets( p_list , 0 )
+);</text>
+        </code>
+        <channel id="ID9339970">
+          <posattr x="-199.500000"
+                   y="-458.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4"/>
+        </channel>
+      </trans>
+      <trans id="ID9439806"
+             explicit="false">
+        <posattr x="-111.000000"
+                 y="-139.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <text>send packets</text>
+        <box w="122.000000"
+             h="40.000000"/>
+        <binding x="7.200000"
+                 y="-3.000000"/>
+        <cond id="ID9439807">
+          <posattr x="-181.000000"
+                   y="-108.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4"/>
+        </cond>
+        <time id="ID9439808">
+          <posattr x="-35.500000"
+                   y="-108.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4"/>
+        </time>
+        <code id="ID9439809">
+          <posattr x="34.000000"
+                   y="-139.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4">input ( p_list );
+action
+(
+  sendPackets( p_list , 0 )
+);</text>
+        </code>
+        <channel id="ID9439810">
+          <posattr x="-205.500000"
+                   y="-139.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4"/>
+        </channel>
+      </trans>
+      <trans id="ID9771702"
+             explicit="false">
+        <posattr x="-111.000000"
+                 y="436.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <text>initNetwork</text>
+        <box w="88.000000"
+             h="40.000000"/>
+        <binding x="7.200000"
+                 y="-3.000000"/>
+        <cond id="ID9771703">
+          <posattr x="-164.000000"
+                   y="467.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4"/>
+        </cond>
+        <time id="ID9771704">
+          <posattr x="-52.500000"
+                   y="467.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4"/>
+        </time>
+        <code id="ID9771705">
+          <posattr x="-18.000000"
+                   y="436.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4">action
+(
+  initNetwork()
+);</text>
+        </code>
+        <channel id="ID9771706">
+          <posattr x="-188.500000"
+                   y="436.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4"/>
+        </channel>
+      </trans>
+      <arc id="ID9327393"
+           orientation="PtoT"
+           order="1">
+        <posattr x="0.000000"
+                 y="-0.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <arrowattr headsize="1.200000"
+                   currentcyckle="2"/>
+        <transend idref="ID9324879"/>
+        <placeend idref="ID9324859"/>
+        <annot id="ID9327394">
+          <posattr x="-105.500000"
+                   y="203.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4">i</text>
+        </annot>
+      </arc>
+      <arc id="ID9327521"
+           orientation="TtoP"
+           order="1">
+        <posattr x="0.000000"
+                 y="-0.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <arrowattr headsize="1.200000"
+                   currentcyckle="2"/>
+        <transend idref="ID9324879"/>
+        <placeend idref="ID9324957"/>
+        <annot id="ID9327522">
+          <posattr x="62.000000"
+                   y="145.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4">if( List.null p_list ) then [i]
+else empty</text>
+        </annot>
+      </arc>
+      <arc id="ID9327652"
+           orientation="PtoT"
+           order="1">
+        <posattr x="0.000000"
+                 y="-0.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <arrowattr headsize="1.200000"
+                   currentcyckle="2"/>
+        <transend idref="ID9324902"/>
+        <placeend idref="ID9324957"/>
+        <annot id="ID9327653">
+          <posattr x="214.500000"
+                   y="209.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4">i</text>
+        </annot>
+      </arc>
+      <arc id="ID9327786"
+           orientation="TtoP"
+           order="1">
+        <posattr x="0.000000"
+                 y="-0.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <arrowattr headsize="1.200000"
+                   currentcyckle="2"/>
+        <transend idref="ID9324902"/>
+        <placeend idref="ID9324859"/>
+        <annot id="ID9327787">
+          <posattr x="47.000000"
+                   y="301.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4">!timeGlobal</text>
+        </annot>
+      </arc>
+      <arc id="ID9335296"
+           orientation="TtoP"
+           order="1">
+        <posattr x="0.000000"
+                 y="-0.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <arrowattr headsize="1.200000"
+                   currentcyckle="2"/>
+        <transend idref="ID9328800"/>
+        <placeend idref="ID9324957"/>
+        <bendpoint id="ID9335298"
+                   serial="1">
+          <posattr x="209.000000"
+                   y="-731.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+        </bendpoint>
+        <annot id="ID9335297">
+          <posattr x="276.500000"
+                   y="-689.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4">if ( List.null p_list2 ) 
+   then [!timeGlobal]
+else empty</text>
+        </annot>
+      </arc>
+      <arc id="ID9344144"
+           orientation="TtoP"
+           order="1">
+        <posattr x="0.000000"
+                 y="-0.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <arrowattr headsize="1.200000"
+                   currentcyckle="2"/>
+        <transend idref="ID9339966"/>
+        <placeend idref="ID9343800"/>
+        <annot id="ID9344145">
+          <posattr x="-90.000000"
+                   y="-522.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4">p_list</text>
+        </annot>
+      </arc>
+      <arc id="ID9344488"
+           orientation="PtoT"
+           order="1">
+        <posattr x="0.000000"
+                 y="-0.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <arrowattr headsize="1.200000"
+                   currentcyckle="2"/>
+        <transend idref="ID9328800"/>
+        <placeend idref="ID9343800"/>
+        <annot id="ID9344489">
+          <posattr x="-90.000000"
+                   y="-655.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4">p_list</text>
+        </annot>
+      </arc>
+      <arc id="ID9439980"
+           orientation="PtoT"
+           order="1">
+        <posattr x="0.000000"
+                 y="-0.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <arrowattr headsize="1.200000"
+                   currentcyckle="2"/>
+        <transend idref="ID9439806"/>
+        <placeend idref="ID9439658"/>
+        <annot id="ID9439981">
+          <posattr x="-90.000000"
+                   y="-85.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4">p_list</text>
+        </annot>
+      </arc>
+      <arc id="ID9467003"
+           orientation="TtoP"
+           order="1">
+        <posattr x="0.000000"
+                 y="-0.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <arrowattr headsize="1.200000"
+                   currentcyckle="2"/>
+        <transend idref="ID9324879"/>
+        <placeend idref="ID9439658"/>
+        <annot id="ID9467808">
+          <posattr x="-170.500000"
+                   y="59.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4">if( List.null p_list )
+  then empty
+else [p_list]</text>
+        </annot>
+      </arc>
+      <arc id="ID9535558"
+           orientation="TtoP"
+           order="1">
+        <posattr x="0.000000"
+                 y="-0.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <arrowattr headsize="1.200000"
+                   currentcyckle="2"/>
+        <transend idref="ID9439806"/>
+        <placeend idref="ID9534800"/>
+        <annot id="ID9535559">
+          <posattr x="-16.000000"
+                   y="-203.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4">duplicatePackets( p_list  , 0 )</text>
+        </annot>
+      </arc>
+      <arc id="ID9571110"
+           orientation="PtoT"
+           order="1">
+        <posattr x="0.000000"
+                 y="-0.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <arrowattr headsize="1.200000"
+                   currentcyckle="2"/>
+        <transend idref="ID9339966"/>
+        <placeend idref="ID9534800"/>
+        <annot id="ID9571111">
+          <posattr x="-90.000000"
+                   y="-396.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4">p_list</text>
+        </annot>
+      </arc>
+      <arc id="ID9669012"
+           orientation="TtoP"
+           order="1">
+        <posattr x="0.000000"
+                 y="-0.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <arrowattr headsize="1.200000"
+                   currentcyckle="2"/>
+        <transend idref="ID9328800"/>
+        <placeend idref="ID9439658"/>
+        <bendpoint id="ID9669999"
+                   serial="1">
+          <posattr x="-311.000000"
+                   y="-731.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+        </bendpoint>
+        <bendpoint id="ID9669014"
+                   serial="2">
+          <posattr x="-311.000000"
+                   y="-23.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+        </bendpoint>
+        <annot id="ID9675964">
+          <posattr x="-339.000000"
+                   y="-759.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4">if ( List.null p_list2 ) 
+   then empty
+else [p_list2]</text>
+        </annot>
+      </arc>
+      <arc id="ID9772765"
+           orientation="PtoT"
+           order="1">
+        <posattr x="0.000000"
+                 y="-0.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <arrowattr headsize="1.200000"
+                   currentcyckle="2"/>
+        <transend idref="ID9771702"/>
+        <placeend idref="ID9771349"/>
+        <annot id="ID9772766">
+          <posattr x="-105.500000"
+                   y="491.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4">i</text>
+        </annot>
+      </arc>
+      <arc id="ID9773488"
+           orientation="TtoP"
+           order="1">
+        <posattr x="0.000000"
+                 y="-0.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <arrowattr headsize="1.200000"
+                   currentcyckle="2"/>
+        <transend idref="ID9771702"/>
+        <placeend idref="ID9324859"/>
+        <annot id="ID9773489">
+          <posattr x="-105.500000"
+                   y="369.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="2.3.4">i</text>
+        </annot>
+      </arc>
+      <Aux id="ID9659530">
+        <posattr x="-358.000000"
+                 y="-970.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <label/>
+        <text>initNetwork();
+
+val p = newPacket( APP , 1 , 1 );
+val n = getNode( 1 );
+val will = willRoute( p , n );
+val p1 = processPacket( p , n );</text>
+      </Aux>
+      <Aux id="ID9660866">
+        <posattr x="-81.000000"
+                 y="-966.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <label/>
+        <text>initNetwork();
+
+val packets = createPackets( 2 );
+val duplicate = duplicatePackets( packets , 0 );
+val process = processPackets( duplicate , 0 );</text>
+      </Aux>
+    </page>
+    <instances>
+      <instance id="ID2149"
+                page="ID6"/>
+    </instances>
+    <options>
+      <option name="outputdirectory">
+        <value>
+          <text>&lt;same as model&gt;</text>
+        </value>
+      </option>
+      <option name="repavg">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="repciavg">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="repcount">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="repfirstval">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="replastval">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="repmax">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="repmin">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="repssquare">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="repssqdev">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="repstddev">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="repsum">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="repvariance">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="avg">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="ciavg">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="count">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="firstval">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="lastval">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="max">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="min">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="ssquare">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="ssqdev">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="stddev">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="sum">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="variance">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="firstupdate">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="interval">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="lastupdate">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="untimedavg">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="untimedciavg">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="untimedcount">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="untimedfirstval">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="untimedlastval">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="untimedmax">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="untimedmin">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="untimedssquare">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="untimedssqdev">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="untimedstddev">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="untimedsum">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="untimedvariance">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+    </options>
+    <binders/>
+    <monitorblock name="Monitors">
+      <monitor id="ID9792832"
+               name="New Monitor"
+               type="1"
+               typedescription="Breakpoint"
+               disabled="false">
+        <node idref="ID9324902"
+              pageinstanceidref="ID2149"/>
+        <declaration name="Predicate">
+          <ml id="ID9792882">fun pred (bindelem) = 
+(
+  1 &lt; getNodeDead()
+)
+            <layout>fun pred (bindelem) = 
+(
+  1 &lt; getNodeDead()
+)</layout>
+          </ml>
+        </declaration>
+      </monitor>
+    </monitorblock>
+    <IndexNode expanded="true">
+      <IndexNode expanded="false"/>
+      <IndexNode expanded="false"/>
+      <IndexNode expanded="false">
+        <IndexNode expanded="false"/>
+        <IndexNode expanded="false">
+          <IndexNode expanded="false">
+            <IndexNode expanded="false">
+              <IndexNode expanded="true"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="true"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="true"/>
+              <IndexNode expanded="true"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+            </IndexNode>
+            <IndexNode expanded="false">
+              <IndexNode expanded="true"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="true"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="true"/>
+              <IndexNode expanded="true"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="true"/>
+              <IndexNode expanded="false"/>
+            </IndexNode>
+          </IndexNode>
+          <IndexNode expanded="false">
+            <IndexNode expanded="true"/>
+            <IndexNode expanded="true"/>
+            <IndexNode expanded="false"/>
+            <IndexNode expanded="false"/>
+            <IndexNode expanded="false"/>
+            <IndexNode expanded="true"/>
+            <IndexNode expanded="true"/>
+            <IndexNode expanded="false"/>
+            <IndexNode expanded="false"/>
+            <IndexNode expanded="true"/>
+            <IndexNode expanded="false"/>
+            <IndexNode expanded="false"/>
+          </IndexNode>
+        </IndexNode>
+      </IndexNode>
+      <IndexNode expanded="false"/>
+      <IndexNode expanded="true">
+        <IndexNode expanded="false">
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="true"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+        </IndexNode>
+        <IndexNode expanded="true">
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="true">
+            <IndexNode expanded="false"/>
+          </IndexNode>
+        </IndexNode>
+        <IndexNode expanded="false">
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+        </IndexNode>
+        <IndexNode expanded="false">
+          <IndexNode expanded="true"/>
+          <IndexNode expanded="true"/>
+          <IndexNode expanded="true"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+        </IndexNode>
+        <IndexNode expanded="false">
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false">
+            <IndexNode expanded="true"/>
+            <IndexNode expanded="true"/>
+            <IndexNode expanded="true"/>
+            <IndexNode expanded="true"/>
+            <IndexNode expanded="true"/>
+            <IndexNode expanded="true"/>
+            <IndexNode expanded="false"/>
+            <IndexNode expanded="false"/>
+            <IndexNode expanded="false"/>
+            <IndexNode expanded="false"/>
+            <IndexNode expanded="false"/>
+            <IndexNode expanded="false"/>
+          </IndexNode>
+        </IndexNode>
+        <IndexNode expanded="false">
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+        </IndexNode>
+        <IndexNode expanded="false">
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false">
+            <IndexNode expanded="false">
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+            </IndexNode>
+            <IndexNode expanded="false">
+              <IndexNode expanded="true"/>
+              <IndexNode expanded="true"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+            </IndexNode>
+            <IndexNode expanded="false">
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+            </IndexNode>
+          </IndexNode>
+          <IndexNode expanded="false">
+            <IndexNode expanded="false"/>
+            <IndexNode expanded="false"/>
+            <IndexNode expanded="false"/>
+            <IndexNode expanded="false"/>
+          </IndexNode>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+        </IndexNode>
+        <IndexNode expanded="false">
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+        </IndexNode>
+        <IndexNode expanded="false">
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+        </IndexNode>
+      </IndexNode>
+      <IndexNode expanded="false">
+        <IndexNode expanded="true">
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false">
+            <IndexNode expanded="true">
+              <IndexNode expanded="false"/>
+            </IndexNode>
+          </IndexNode>
+          <IndexNode expanded="true">
+            <IndexNode expanded="true"/>
+          </IndexNode>
+        </IndexNode>
+      </IndexNode>
+      <IndexNode expanded="true"/>
+    </IndexNode>
+  </cpnet>
+</workspaceElements>

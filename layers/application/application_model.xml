@@ -1,0 +1,38 @@
+<configuration>
+ <name>application_model</name>
+ <layer>application</layer>
+ <description>This model is created by wsn2cpn after evaluate a application model.
+Profile 001 - responsável por criar os pacotes periodicamente;
+Profile 002 - responsável por contabilizar o consumo de energia da aplicação no nó sensor;
+</description>
+
+ <variable_list>
+
+   <property>
+    <name>app_time</name>
+    <type>INT</type>
+    <default>2</default>
+    <description>It determine the energy of the application.</description>
+   </property>
+
+   <property>
+    <name>app_energy</name>
+    <type>REAL</type>
+    <default>0.0001</default>
+    <description>It determine the energy of the application.</description>
+   </property>
+
+ </variable_list>
+
+ <node_propreties>
+
+   <property>
+    <name>sendTo</name>
+    <type>INT</type>
+    <default>1</default>
+    <description>It determine which node receives the packet.</description>
+   </property>
+
+ </node_propreties>
+
+</configuration>

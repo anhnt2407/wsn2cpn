@@ -1,0 +1,35 @@
+<configuration>
+ <name>perfect_mac</name>
+ <layer>mac</layer>
+ <description>The Perfect MAC.</description>
+
+ <variable_list>
+
+  <property>
+   <name>packetSize</name>
+   <type>INT</type>
+   <default>2000</default>
+   <description>Size (bit) of the Packet.</description>
+  </property>
+
+</variable_list>
+
+<node_propreties>
+
+  <property>
+   <name>battery</name>
+   <type>real</type>
+   <default>1.0</default>
+   <description>Battery (Joule) of the sensor node.</description>
+  </property>
+
+  <property>
+   <name>range</name>
+   <type>int</type>
+   <default>200</default>
+   <description>Range of the sensor node.</description>
+  </property>
+
+ </node_propreties>
+
+</configuration>

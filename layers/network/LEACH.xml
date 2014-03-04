@@ -1,0 +1,61 @@
+<configuration>
+ <name>LEACH</name>
+ <layer>network</layer>
+ <description>Low-Energy Adaptive Clustering Hierarchy (LEACH). Foram criados 5 perfies:
+Profile 001 - rotea os pacotes dos nós até o Cluster Head;
+Profile 002 - Cluster Head envia um pacote para a Base Station;
+Profile 003 - Elege um novo Cluster Head;
+Profile 004 - A Base Station envia um pacote para todo mundo;
+Profile 005 - Os nós enviam um pacorte para associar a um Cluster Head;</description>
+
+ <variable_list>
+
+  <property>
+   <name>leach_setup_time</name>
+   <type>INT</type>
+   <default>80</default>
+   <description>Each X time, the setup phrase is executed.</description>
+  </property>
+
+  <property>
+   <name>leach_aggregation_time</name>
+   <type>INT</type>
+   <default>10</default>
+   <description>Each X time, the aggregation phrase is executed.</description>
+  </property>
+
+  <property>
+   <name>leach_cluster_no</name>
+   <type>INT</type>
+   <default>8</default>
+   <description>Number of cluster in the WSN.</description>
+  </property>
+
+  <property>
+   <name>leach_round</name>
+   <type>INT</type>
+   <default>0</default>
+   <description>It should be zero.</description>
+  </property>
+
+  <property>
+   <name>clusterHeadList</name>
+   <type>list INT</type>
+   <default>[0]</default>
+   <description>It should be zero.</description>
+  </property>
+
+ </variable_list>
+
+ <node_propreties>
+
+  <property>
+   <name>chId</name>
+   <type>INT</type>
+   <default>0</default>
+   <description>it define the ID of the cluster head (CH) which this node should send the data.</description>
+  </property>
+
+ </node_propreties>
+
+</configuration>

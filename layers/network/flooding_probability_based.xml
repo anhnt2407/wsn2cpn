@@ -1,0 +1,24 @@
+<configuration>
+ <name>flooding_probability_based</name>
+ <layer>network</layer>
+ <description>Flooding protocol is probability-based.</description>
+
+ <variable_list>
+
+   <property>
+    <name>net_probability_route</name>
+    <type>real</type>
+    <default>0.01</default>
+    <description>It define the probability the node retransmit a packet.</description>
+   </property>
+
+   <property>
+    <name>net_max_hop</name>
+    <type>INT</type>
+    <default>5</default>
+    <description>It define max route the node can route a packet.</description>
+   </property>
+
+ </variable_list>
+
+</configuration>

@@ -1,0 +1,1097 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE workspaceElements PUBLIC "-//CPN//DTD CPNXML 1.0//EN" "http://www.daimi.au.dk/~cpntools/bin/DTD/6/cpn.dtd">
+
+<workspaceElements>
+  <generator tool="CPN Tools"
+             version="2.3.4"
+             format="6"/>
+  <cpnet>
+    <globbox>
+      <block id="ID1">
+        <id>Standard declarations</id>
+        <color id="ID85042">
+          <id>UNIT</id>
+          <unit/>
+          <layout>colset UNIT = unit;</layout>
+        </color>
+        <color id="ID3">
+          <id>INT</id>
+          <int/>
+        </color>
+        <color id="ID9566911">
+          <id>INT_LIST</id>
+          <list>
+            <id>INT</id>
+          </list>
+          <layout>colset INT_LIST = list INT;</layout>
+        </color>
+        <color id="ID4">
+          <id>BOOL</id>
+          <bool/>
+        </color>
+        <color id="ID5">
+          <id>STRING</id>
+          <string/>
+        </color>
+        <var id="ID9358819">
+          <type>
+            <id>INT</id>
+          </type>
+          <id>i</id>
+          <layout>var i : INT;</layout>
+        </var>
+      </block>
+      <block id="ID9354440">
+        <id>Node Functions</id>
+        <color id="ID9353596">
+          <id>NODE_TYPE</id>
+          <enum>
+            <id>ALL</id>
+            <id>BS</id>
+            <id>NODE</id>
+            <id>CH</id>
+          </enum>
+          <layout>colset NODE_TYPE = with
+   ALL | BS | NODE | CH;</layout>
+        </color>
+        <color id="ID9387984">
+          <id>MOTE</id>
+          <record>
+            <recordfield>
+              <id>id</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>nodeType</id>
+              <id>NODE_TYPE</id>
+            </recordfield>
+            <recordfield>
+              <id>range</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>X</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>Y</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>isDead</id>
+              <id>BOOL</id>
+            </recordfield>
+          </record>
+          <layout>colset MOTE = record
+   id : INT
+* nodeType : NODE_TYPE
+* range : INT
+* X : INT
+* Y : INT
+* isDead : BOOL;</layout>
+        </color>
+        <color id="ID9429865">
+          <id>MOTE_LIST</id>
+          <list>
+            <id>MOTE</id>
+          </list>
+          <layout>colset MOTE_LIST = list MOTE;</layout>
+        </color>
+        <globref id="ID9392410">
+          <id>nodeList</id>
+          <ml>nil : MOTE list</ml>
+          <layout>globref nodeList = nil : MOTE list;</layout>
+        </globref>
+        <ml id="ID9428861">fun newNode( id : INT ) =
+(
+  {
+    id = id ,
+    nodeType = NODE ,
+    range = 200,
+    X = 0 ,
+    Y = 0 
+  }
+);
+          <layout>fun newNode( id : INT ) =
+(
+  {
+    id = id ,
+    nodeType = NODE ,
+    range = 200,
+    X = 0 ,
+    Y = 0 
+  }
+);</layout>
+        </ml>
+        <ml id="ID9434159">fun getNode( i : INT ) =
+(
+  List.nth ( !nodeList , i  - 1 )
+);
+          <layout>fun getNode( i : INT ) =
+(
+  List.nth ( !nodeList , i  - 1 )
+);</layout>
+        </ml>
+        <ml id="ID9428948">fun addNode( n : MOTE ) =
+(
+  nodeList := ins (!nodeList) n
+);
+          <layout>fun addNode( n : MOTE ) =
+(
+  nodeList := ins (!nodeList) n
+);</layout>
+        </ml>
+        <ml id="ID9702467">fun updateNode_( i : INT , n : MOTE ) =
+let
+  val nOLD = getNode ( i );
+  val hasNext = i &lt; length (!nodeList);
+in
+  if ( i = #id n andalso hasNext ) then
+     n :: updateNode_( i + 1 , n )
+  else if( i  = #id n ) then
+    [ n ]
+  else if ( hasNext ) then
+    nOLD :: updateNode_( i + 1 , n )
+  else
+   [ nOLD ]
+end;
+          <layout>fun updateNode_( i : INT , n : MOTE ) =
+let
+  val nOLD = getNode ( i );
+  val hasNext = i &lt; length (!nodeList);
+in
+  if ( i = #id n andalso hasNext ) then
+     n :: updateNode_( i + 1 , n )
+  else if( i  = #id n ) then
+    [ n ]
+  else if ( hasNext ) then
+    nOLD :: updateNode_( i + 1 , n )
+  else
+   [ nOLD ]
+end;</layout>
+        </ml>
+        <ml id="ID9698793">fun updateNode( n : MOTE ) = 
+(
+  nodeList := updateNode_( 1 , n )
+);
+          <layout>fun updateNode( n : MOTE ) = 
+(
+  nodeList := updateNode_( 1 , n )
+);</layout>
+        </ml>
+        <ml id="ID9701001">fun updateNodeDead( n : MOTE ) =
+let
+  val n1 = MOTE.set_isDead n true;
+in
+  updateNode( n1 )
+end;
+          <layout>fun updateNodeDead( n : MOTE ) =
+let
+  val n1 = MOTE.set_isDead n true;
+in
+  updateNode( n1 )
+end;</layout>
+        </ml>
+        <ml id="ID9434704">fun getNodeSize() =
+(
+  length (!nodeList)
+);
+          <layout>fun getNodeSize() =
+(
+  length (!nodeList)
+);</layout>
+        </ml>
+        <ml id="ID9429062">fun createNodes() =
+(
+  nodeList := nil;
+
+  addNode( {id = 1 , isDead = false, nodeType = BS   , range = 200 , X = 50, Y = 50 });
+  addNode( {id = 2 , isDead = false, nodeType = NODE , range = 200 , X = 36 , Y = 17 });
+  addNode( {id = 3 , isDead = false, nodeType = NODE , range = 200 , X = 81, Y = 29 });
+  addNode( {id = 4 , isDead = false, nodeType = NODE , range = 200 , X = 5, Y = 47 });
+  addNode( {id = 5 , isDead =  false, nodeType = NODE , range = 200 , X = 56, Y = 6 });
+  addNode( {id = 6 , isDead = false, nodeType = NODE , range = 200 , X = 90, Y = 55 });
+  addNode( {id = 7 , isDead = false, nodeType = NODE , range = 200 , X = 77, Y = 47 });
+  addNode( {id = 8 , isDead = false, nodeType = NODE , range = 200 , X = 52, Y = 77 });
+  addNode( {id = 9 , isDead = false, nodeType = NODE , range = 200 , X = 37, Y = 32 });
+  addNode( {id = 10, isDead = false, nodeType = NODE , range = 200 , X = 16, Y = 34 });
+  addNode( {id = 11, isDead = false, nodeType = NODE , range = 200 , X = 24, Y = 69 });
+  addNode( {id = 12, isDead = false, nodeType = NODE , range = 200 , X = 73, Y = 29 });
+  addNode( {id = 13, isDead = false, nodeType = NODE , range = 200 , X = 39, Y = 13 });
+  addNode( {id = 14, isDead = false, nodeType = NODE , range = 200 , X = 35, Y = 27 });
+  addNode( {id = 15, isDead = false, nodeType = NODE , range = 200 , X = 75, Y = 93 });
+  addNode( {id = 16, isDead = false, nodeType = NODE , range = 200 , X = 48, Y = 3 });
+  addNode( {id = 17, isDead = false, nodeType = NODE , range = 200 , X = 58, Y = 67 });
+  addNode( {id = 18, isDead = false, nodeType = NODE , range = 200 , X = 89, Y = 28 });
+  addNode( {id = 19, isDead = false, nodeType = NODE , range = 200 , X = 67, Y = 5 });
+  addNode( {id = 20, isDead = false, nodeType = NODE , range = 200 , X = 80, Y = 48 })
+);
+          <layout>fun createNodes() =
+(
+  nodeList := nil;
+
+  addNode( {id = 1 , isDead = false, nodeType = BS   , range = 200 , X = 50, Y = 50 });
+  addNode( {id = 2 , isDead = false, nodeType = NODE , range = 200 , X = 36 , Y = 17 });
+  addNode( {id = 3 , isDead = false, nodeType = NODE , range = 200 , X = 81, Y = 29 });
+  addNode( {id = 4 , isDead = false, nodeType = NODE , range = 200 , X = 5, Y = 47 });
+  addNode( {id = 5 , isDead =  false, nodeType = NODE , range = 200 , X = 56, Y = 6 });
+  addNode( {id = 6 , isDead = false, nodeType = NODE , range = 200 , X = 90, Y = 55 });
+  addNode( {id = 7 , isDead = false, nodeType = NODE , range = 200 , X = 77, Y = 47 });
+  addNode( {id = 8 , isDead = false, nodeType = NODE , range = 200 , X = 52, Y = 77 });
+  addNode( {id = 9 , isDead = false, nodeType = NODE , range = 200 , X = 37, Y = 32 });
+  addNode( {id = 10, isDead = false, nodeType = NODE , range = 200 , X = 16, Y = 34 });
+  addNode( {id = 11, isDead = false, nodeType = NODE , range = 200 , X = 24, Y = 69 });
+  addNode( {id = 12, isDead = false, nodeType = NODE , range = 200 , X = 73, Y = 29 });
+  addNode( {id = 13, isDead = false, nodeType = NODE , range = 200 , X = 39, Y = 13 });
+  addNode( {id = 14, isDead = false, nodeType = NODE , range = 200 , X = 35, Y = 27 });
+  addNode( {id = 15, isDead = false, nodeType = NODE , range = 200 , X = 75, Y = 93 });
+  addNode( {id = 16, isDead = false, nodeType = NODE , range = 200 , X = 48, Y = 3 });
+  addNode( {id = 17, isDead = false, nodeType = NODE , range = 200 , X = 58, Y = 67 });
+  addNode( {id = 18, isDead = false, nodeType = NODE , range = 200 , X = 89, Y = 28 });
+  addNode( {id = 19, isDead = false, nodeType = NODE , range = 200 , X = 67, Y = 5 });
+  addNode( {id = 20, isDead = false, nodeType = NODE , range = 200 , X = 80, Y = 48 })
+);</layout>
+        </ml>
+      </block>
+      <block id="ID9440393">
+        <id>Packet Functions</id>
+        <globref id="ID9441165">
+          <id>packetSize</id>
+          <ml>2000</ml>
+          <layout>globref packetSize = 2000;</layout>
+        </globref>
+        <color id="ID9441723">
+          <id>PACKET_TYPE</id>
+          <enum>
+            <id>CONTROL</id>
+            <id>APP</id>
+          </enum>
+          <layout>colset PACKET_TYPE = with 
+  CONTROL 
+| APP;</layout>
+        </color>
+        <color id="ID9440631">
+          <id>PACKET</id>
+          <record>
+            <recordfield>
+              <id>profile_id</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>from</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>to</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>destination</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>range</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>processBy</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>hop</id>
+              <id>INT</id>
+            </recordfield>
+          </record>
+          <layout>colset PACKET = record
+   profile_id : INT
+* from : INT
+* to : INT
+* destination : INT
+* range : INT
+* processBy : INT
+* hop :  INT;</layout>
+        </color>
+        <color id="ID9575496">
+          <id>PACKET_LIST</id>
+          <list>
+            <id>PACKET</id>
+          </list>
+          <layout>colset PACKET_LIST = list PACKET;</layout>
+        </color>
+        <var id="ID9442773">
+          <type>
+            <id>PACKET_LIST</id>
+          </type>
+          <id>p_list</id>
+          <id>p_list2</id>
+          <layout>var p_list , p_list2 : PACKET_LIST;</layout>
+        </var>
+        <ml id="ID9441491">fun newPacket( pID: INT , from : INT , to : INT ) =
+(
+  {
+    profile_id = pID ,
+    from = from ,
+    to = to ,
+    destination = to,
+    processBy = 0,
+    range = 0,
+    hop = 1
+  }
+);
+          <layout>fun newPacket( pID: INT , from : INT , to : INT ) =
+(
+  {
+    profile_id = pID ,
+    from = from ,
+    to = to ,
+    destination = to,
+    processBy = 0,
+    range = 0,
+    hop = 1
+  }
+);</layout>
+        </ml>
+        <ml id="ID9573623">fun setProcessBy( p : PACKET ) =
+(
+  PACKET.set_processBy p (#to p)
+);
+          <layout>fun setProcessBy( p : PACKET ) =
+(
+  PACKET.set_processBy p (#to p)
+);</layout>
+        </ml>
+      </block>
+      <block id="ID38">
+        <id>Energy Table</id>
+        <globref id="ID9680519">
+          <id>battery</id>
+          <ml>1.0 : real</ml>
+          <layout>globref battery = 1.0 : real;</layout>
+        </globref>
+        <globref id="ID39">
+          <id>energyList</id>
+          <ml>nil : real list</ml>
+          <layout>globref energyList = nil : real list;</layout>
+        </globref>
+        <globref id="ID9678925">
+          <id>deadNodeList</id>
+          <ml>nil : INT list</ml>
+          <layout>globref deadNodeList = nil : INT list;</layout>
+        </globref>
+        <ml id="ID9679601">fun isNodeDead( id : INT , e : real ) =
+let
+  val n = getNode( id );
+in
+   if ( !battery &lt; e  andalso 
+        #nodeType n &lt;&gt; BS  andalso
+        #isDead n = false ) then 
+    (
+       deadNodeList := ins (!deadNodeList) id;
+       updateNodeDead( n )
+    )
+   else ()
+end;
+          <layout>fun isNodeDead( id : INT , e : real ) =
+let
+  val n = getNode( id );
+in
+   if ( !battery &lt; e  andalso 
+        #nodeType n &lt;&gt; BS  andalso
+        #isDead n = false ) then 
+    (
+       deadNodeList := ins (!deadNodeList) id;
+       updateNodeDead( n )
+    )
+   else ()
+end;</layout>
+        </ml>
+        <ml id="ID40">fun getEnergy( id:int ) =
+(
+   List.nth ( !energyList , id - 1 )
+);
+          <layout>fun getEnergy( id:int ) =
+(
+   List.nth ( !energyList , id - 1 )
+);</layout>
+        </ml>
+        <ml id="ID41">fun setEnergy_( i: int , id:int , v:real ) =
+(
+  if ( length (!energyList) = i )
+      then []
+  else if ( id - 1 = i )
+      then v::setEnergy_( i + 1 , id , v )
+  else
+      getEnergy( i + 1 )::setEnergy_( i + 1 , id , v )
+);
+          <layout>fun setEnergy_( i: int , id:int , v:real ) =
+(
+  if ( length (!energyList) = i )
+      then []
+  else if ( id - 1 = i )
+      then v::setEnergy_( i + 1 , id , v )
+  else
+      getEnergy( i + 1 )::setEnergy_( i + 1 , id , v )
+);</layout>
+        </ml>
+        <ml id="ID42">fun setEnergy( id : INT , value:real ) =
+(
+  energyList := setEnergy_(  0 , id , value );
+  isNodeDead( id , value )
+);
+          <layout>fun setEnergy( id : INT , value:real ) =
+(
+  energyList := setEnergy_(  0 , id , value );
+  isNodeDead( id , value )
+);</layout>
+        </ml>
+        <ml id="ID9701613">fun createEnergys( i : INT ) =
+(
+   energyList := ins (!energyList) 0.0;
+
+   if ( i + 1 &lt; length (!nodeList) ) then
+      createEnergys( i + 1 )
+   else ( )
+);
+          <layout>fun createEnergys( i : INT ) =
+(
+   energyList := ins (!energyList) 0.0;
+
+   if ( i + 1 &lt; length (!nodeList) ) then
+      createEnergys( i + 1 )
+   else ( )
+);</layout>
+        </ml>
+      </block>
+      <block id="ID74">
+        <id>Neighbor Table</id>
+        <color id="ID18">
+          <id>ROUTING</id>
+          <record>
+            <recordfield>
+              <id>destination</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>neighbor</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>cost</id>
+              <id>INT</id>
+            </recordfield>
+          </record>
+          <layout>colset ROUTING = record
+       destination:INT
+    * neighbor:INT
+    * cost:INT;</layout>
+        </color>
+        <ml id="ID32">fun euclideanDistance( from:MOTE , to:MOTE ) =
+let
+  val X = real (#X from - #X to)
+  val Y = real (#Y from - #Y to)
+  val d = Math.sqrt ( X*X + Y*Y )
+in
+   d
+end;
+          <layout>fun euclideanDistance( from:MOTE , to:MOTE ) =
+let
+  val X = real (#X from - #X to)
+  val Y = real (#Y from - #Y to)
+  val d = Math.sqrt ( X*X + Y*Y )
+in
+   d
+end;</layout>
+        </ml>
+        <ml id="ID76">fun isNeighbor( from: MOTE , to:MOTE ) =
+let
+   val d = euclideanDistance( from , to )
+in
+  if( d &lt; real (#range from)  andalso 
+      #isDead to = false ) then true
+  else false
+end;
+          <layout>fun isNeighbor( from: MOTE , to:MOTE ) =
+let
+   val d = euclideanDistance( from , to )
+in
+  if( d &lt; real (#range from)  andalso 
+      #isDead to = false ) then true
+  else false
+end;</layout>
+        </ml>
+        <ml id="ID77">fun isReceive( p:PACKET, id:INT ) =
+let
+  val nFrom = List.nth( !nodeList , #from p - 1 )
+  val node = List.nth( !nodeList , id - 1 )
+in
+   if((#from p) = id) then false
+   else if( isNeighbor( nFrom , node ) ) then true
+   else false
+end;
+          <layout>fun isReceive( p:PACKET, id:INT ) =
+let
+  val nFrom = List.nth( !nodeList , #from p - 1 )
+  val node = List.nth( !nodeList , id - 1 )
+in
+   if((#from p) = id) then false
+   else if( isNeighbor( nFrom , node ) ) then true
+   else false
+end;</layout>
+        </ml>
+        <ml id="ID78">fun createNeighborList( p:PACKET, id:int , list:INT_LIST ) =
+let
+   val list2 = [id] : INT_LIST;
+in
+   if(  isReceive( p , id ) ) then list^^list2
+   else list
+end;
+          <layout>fun createNeighborList( p:PACKET, id:int , list:INT_LIST ) =
+let
+   val list2 = [id] : INT_LIST;
+in
+   if(  isReceive( p , id ) ) then list^^list2
+   else list
+end;</layout>
+        </ml>
+        <ml id="ID79">fun addNeighborList( p:PACKET , id:int , size:int , list:INT_LIST ) =
+let
+    val list2 = createNeighborList( p , id , list );
+in
+  if( id &lt; size ) then
+     addNeighborList( p , id+1 , size , list )^^list2
+  else list2
+end;
+          <layout>fun addNeighborList( p:PACKET , id:int , size:int , list:INT_LIST ) =
+let
+    val list2 = createNeighborList( p , id , list );
+in
+  if( id &lt; size ) then
+     addNeighborList( p , id+1 , size , list )^^list2
+  else list2
+end;</layout>
+        </ml>
+        <ml id="ID80">fun getNeighborList( p:PACKET ) =
+let
+   val size = length (!nodeList);
+in
+   addNeighborList( p , 1 , size , nil )
+end;
+          <layout>fun getNeighborList( p:PACKET ) =
+let
+   val size = length (!nodeList);
+in
+   addNeighborList( p , 1 , size , nil )
+end;</layout>
+        </ml>
+        <ml id="ID81">fun getNeighbor( node:int ) =
+(
+   {destination=1,neighbor=1,cost=1}
+);
+          <layout>fun getNeighbor( node:int ) =
+(
+   {destination=1,neighbor=1,cost=1}
+);</layout>
+        </ml>
+        <ml id="ID82">fun cost( n1:int , n2:int ) =
+let
+   val N1 = List.nth( !nodeList , n1  - 1 );
+   val N2 = List.nth( !nodeList , n2 - 1 );
+   val d = euclideanDistance( N1 , N2 );
+   val r  = {destination=n2,neighbor=n2,cost=0};
+in
+   if( d &lt; 40.0 ) then
+      1
+   else if( d &lt; 45.0 ) then
+      2
+   else if( d &lt; 50.0 ) then
+      3
+   else
+      999
+end;
+          <layout>fun cost( n1:int , n2:int ) =
+let
+   val N1 = List.nth( !nodeList , n1  - 1 );
+   val N2 = List.nth( !nodeList , n2 - 1 );
+   val d = euclideanDistance( N1 , N2 );
+   val r  = {destination=n2,neighbor=n2,cost=0};
+in
+   if( d &lt; 40.0 ) then
+      1
+   else if( d &lt; 45.0 ) then
+      2
+   else if( d &lt; 50.0 ) then
+      3
+   else
+      999
+end;</layout>
+        </ml>
+      </block>
+      <block id="ID9351530">
+        <id>Profile Functions</id>
+        <color id="ID9352758">
+          <id>PROFILE</id>
+          <record>
+            <recordfield>
+              <id>nodeType</id>
+              <id>NODE_TYPE</id>
+            </recordfield>
+            <recordfield>
+              <id>maxTime</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>seconds</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>packet</id>
+              <id>PACKET</id>
+            </recordfield>
+            <recordfield>
+              <id>id</id>
+              <id>INT</id>
+            </recordfield>
+            <recordfield>
+              <id>start</id>
+              <id>INT</id>
+            </recordfield>
+          </record>
+          <layout>colset PROFILE = record
+   nodeType : NODE_TYPE
+* maxTime : INT
+* seconds : INT
+* packet : PACKET
+* id : INT
+* start : INT;</layout>
+        </color>
+        <color id="ID9395639">
+          <id>PROFILE_LIST</id>
+          <list>
+            <id>PROFILE</id>
+          </list>
+          <layout>colset PROFILE_LIST = list PROFILE;</layout>
+        </color>
+        <globref id="ID9362535">
+          <id>profileList</id>
+          <ml>nil : PROFILE list</ml>
+          <layout>globref profileList = nil : PROFILE list;</layout>
+        </globref>
+        <block id="ID9618994">
+          <id>Profile Default</id>
+          <ml id="ID9452748">fun clonePacket000( p : PACKET , n : MOTE ) =
+let
+  val p = PACKET.set_from p (#id n);
+  val p1 = PACKET.set_range p (#range n);
+in
+  p1
+end;
+            <layout>fun clonePacket000( p : PACKET , n : MOTE ) =
+let
+  val p = PACKET.set_from p (#id n);
+  val p1 = PACKET.set_range p (#range n);
+in
+  p1
+end;</layout>
+          </ml>
+          <ml id="ID9620415">fun willRoute000( p : PACKET , n : MOTE ) =
+(
+  false
+);
+            <layout>fun willRoute000( p : PACKET , n : MOTE ) =
+(
+  false
+);</layout>
+          </ml>
+          <ml id="ID9621149">fun processPacket000( p : PACKET , n : MOTE ) =
+(
+   PACKET.set_hop p (#hop p + 1)
+);
+            <layout>fun processPacket000( p : PACKET , n : MOTE ) =
+(
+   PACKET.set_hop p (#hop p + 1)
+);</layout>
+          </ml>
+        </block>
+        <ml id="ID9363503">fun addProfile( s : PROFILE ) =
+(
+   profileList := ins (!profileList) s
+);
+          <layout>fun addProfile( s : PROFILE ) =
+(
+   profileList := ins (!profileList) s
+);</layout>
+        </ml>
+      </block>
+      <block id="ID9613227">
+        <id>Profile 001</id>
+        <globref id="ID9691727">
+          <id>app_time</id>
+          <ml>2</ml>
+          <layout>globref app_time = 2;</layout>
+        </globref>
+        <ml id="ID9783394">fun createProfile001( id : INT ) =
+(
+ {
+    id = id , 
+    nodeType = NODE , 
+    maxTime = 9999 , 
+    seconds = !app_time ,  
+    packet = newPacket( id , 0 , 1 ) ,
+    start = 0 
+ }
+);
+          <layout>fun createProfile001( id : INT ) =
+(
+ {
+    id = id , 
+    nodeType = NODE , 
+    maxTime = 9999 , 
+    seconds = !app_time ,  
+    packet = newPacket( id , 0 , 1 ) ,
+    start = 0 
+ }
+);</layout>
+        </ml>
+      </block>
+    </globbox>
+    <page id="ID9782527">
+      <pageattr name="New Page"/>
+    </page>
+    <instances>
+      <instance id="ID9782529"
+                page="ID9782527"/>
+    </instances>
+    <options>
+      <option name="outputdirectory">
+        <value>
+          <text>&lt;same as model&gt;</text>
+        </value>
+      </option>
+      <option name="repavg">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="repciavg">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="repcount">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="repfirstval">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="replastval">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="repmax">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="repmin">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="repssquare">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="repssqdev">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="repstddev">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="repsum">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="repvariance">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="avg">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="ciavg">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="count">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="firstval">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="lastval">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="max">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="min">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="ssquare">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="ssqdev">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="stddev">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="sum">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="variance">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="firstupdate">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="interval">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="lastupdate">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="untimedavg">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="untimedciavg">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="untimedcount">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="untimedfirstval">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="untimedlastval">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="untimedmax">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="untimedmin">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="untimedssquare">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="untimedssqdev">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="untimedstddev">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+      <option name="untimedsum">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="untimedvariance">
+        <value>
+          <boolean>false</boolean>
+        </value>
+      </option>
+    </options>
+    <binders/>
+    <monitorblock name="Monitors"/>
+    <IndexNode expanded="true">
+      <IndexNode expanded="false"/>
+      <IndexNode expanded="false"/>
+      <IndexNode expanded="false">
+        <IndexNode expanded="false"/>
+        <IndexNode expanded="false">
+          <IndexNode expanded="false">
+            <IndexNode expanded="false">
+              <IndexNode expanded="true"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="true"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="true"/>
+              <IndexNode expanded="true"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+            </IndexNode>
+            <IndexNode expanded="false">
+              <IndexNode expanded="true"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="true"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="true"/>
+              <IndexNode expanded="true"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="false"/>
+              <IndexNode expanded="true"/>
+              <IndexNode expanded="false"/>
+            </IndexNode>
+          </IndexNode>
+          <IndexNode expanded="false">
+            <IndexNode expanded="true"/>
+            <IndexNode expanded="true"/>
+            <IndexNode expanded="false"/>
+            <IndexNode expanded="false"/>
+            <IndexNode expanded="false"/>
+            <IndexNode expanded="true"/>
+            <IndexNode expanded="true"/>
+            <IndexNode expanded="false"/>
+            <IndexNode expanded="false"/>
+            <IndexNode expanded="true"/>
+            <IndexNode expanded="false"/>
+            <IndexNode expanded="false"/>
+          </IndexNode>
+        </IndexNode>
+      </IndexNode>
+      <IndexNode expanded="false"/>
+      <IndexNode expanded="false">
+        <IndexNode expanded="false">
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="true"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+        </IndexNode>
+        <IndexNode expanded="false">
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+        </IndexNode>
+        <IndexNode expanded="false">
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="true"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+        </IndexNode>
+        <IndexNode expanded="false">
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+        </IndexNode>
+        <IndexNode expanded="false">
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+        </IndexNode>
+        <IndexNode expanded="false">
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false"/>
+          <IndexNode expanded="false">
+            <IndexNode expanded="false"/>
+            <IndexNode expanded="false"/>
+            <IndexNode expanded="false"/>
+          </IndexNode>
+          <IndexNode expanded="false"/>
+        </IndexNode>
+        <IndexNode expanded="false">
+          <IndexNode expanded="true"/>
+          <IndexNode expanded="false"/>
+        </IndexNode>
+      </IndexNode>
+      <IndexNode expanded="false"/>
+      <IndexNode expanded="true"/>
+    </IndexNode>
+  </cpnet>
+</workspaceElements>

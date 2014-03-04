@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<topology>
+ 
+ <configurations>
+  <property name="" value="" />
+  <!-- ... -->
+ </configurations>
+
+ <packets>
+
+  <packet source="" destination="" id="">
+   <property name="" value="" />
+   <property name="" value="" />
+   <property name="" value="" />
+   <!-- ... -->
+  </packet>
+
+  <!-- ... -->
+
+ </packets>
+
+ <nodes>
+
+  <node id="">
+   <property name="" value="" />
+   <property name="" value="" />
+   <property name="" value="" />
+   <!-- ... -->
+  </node>
+
+  <node id="">
+   <property name="" value="" />
+   <property name="" value="" />
+   <property name="" value="" />
+   <!-- ... -->
+  </node>
+
+  <!-- ... -->
+
+ <nodes>
+
+<topology>

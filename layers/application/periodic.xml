@@ -1,0 +1,17 @@
+<configuration>
+ <name>periodic</name>
+ <layer>application</layer>
+ <description>The Application will send a message each X seconds.</description>
+
+ <variable_list>
+
+   <property>
+    <name>app_time</name>
+    <type>INT</type>
+    <default>2</default>
+    <description>It define when node should send a message (in seconds).</description>
+   </property>
+
+ </variable_list>
+
+</configuration>

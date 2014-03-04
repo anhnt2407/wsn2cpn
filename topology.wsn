@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<topology>
+
+ <configurations>
+   <property name="teste3" value="value1" />
+   <property name="teste1" value="value1" />
+   <property name="teste2" value="value1" />
+ </configurations>
+
+ <nodes>
+
+  <node id="1">
+   <property name="application" value="" />
+   <property name="battery" value="100" />
+   <property name="type" value="" />
+   <property name="X" value="" />
+   <property name="Y" value="" />
+  </node>
+
+  <node id="2">
+   <property name="application" value="" />
+   <property name="battery" value="100" />
+   <property name="type" value="" />
+   <property name="X" value="" />
+   <property name="Y" value="" />
+  </node>
+
+  <node id="3">
+   <property name="application" value="" />
+   <property name="battery" value="100" />
+   <property name="type" value="" />
+   <property name="X" value="" />
+   <property name="Y" value="" />
+  </node>
+
+  <node id="4">
+   <property name="application" value="" />
+   <property name="battery" value="100" />
+   <property name="type" value="" />
+   <property name="X" value="" />
+   <property name="Y" value="" />
+  </node>
+
+ </nodes>
+
+</topology>

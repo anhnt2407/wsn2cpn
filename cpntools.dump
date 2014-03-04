@@ -1,0 +1,549 @@
+Beta execution aborted: Reference is none.
+
+Call chain: (linux)
+
+  item <*> in /users/cpntools/cpn2000/cpnet/cpnetxml
+    -- load#load#load# in /users/cpntools/cpn2000/cpnet/cpnetxml
+  item <load#>load#load# in /users/cpntools/cpn2000/cpnet/cpnetxml
+    -- PageInstanceLoader#NotifierLoader#Loader# in /users/cpntools/cpn2000/cpnet/cpnetxml
+  item load#<load#>load# in /users/cpntools/cpn2000/cpnet/cpnetxml
+    -- PageInstanceLoader#NotifierLoader#Loader# in /users/cpntools/cpn2000/cpnet/cpnetxml
+  item load#load#<load#> in /users/cpntools/cpn2000/cpnet/cpnetxml
+    -- PageInstanceLoader#NotifierLoader#Loader# in /users/cpntools/cpn2000/cpnet/cpnetxml
+  item <*>scanElements# in /users/cpntools/cpn2000/cpnet/cpnetxml
+    -- *scanElements# in /users/cpntools/cpn2000/cpnet/cpnetxml
+  item *<scanElements#> in ~beta/xml/xml
+    -- Element#AbstractElement# in ~beta/xml/xml
+  item onElement#<onElement#> in ~beta/xml/xml
+    -- *select# in ~beta/xml/private/xmlbody
+  item <selector#>selector# in ~beta/xml/xml
+    -- Element#AbstractElement# in ~beta/xml/xml
+  item selector#<selector#> in ~beta/xml/xml
+    -- Element#AbstractElement# in ~beta/xml/xml
+  item *<select#> in ~beta/xml/xml
+    -- Element#AbstractElement# in ~beta/xml/xml
+  item <*>scan# in ~beta/xml/private/xmlbody
+    -- *scanElements# in /users/cpntools/cpn2000/cpnet/cpnetxml
+  item *<scan#> in ~beta/xml/xml
+    -- Element#AbstractElement# in ~beta/xml/xml
+  item *<scanElements#> in ~beta/xml/xml
+    -- Element#AbstractElement# in ~beta/xml/xml
+  item <*>scanElements# in /users/cpntools/cpn2000/cpnet/cpnetxml
+    -- * in /users/cpntools/cpn2000/cpnet/cpnetxml
+  item *<scanElements#> in ~beta/xml/xml
+    -- Element#AbstractElement# in ~beta/xml/xml
+  item onElement#<onElement#> in ~beta/xml/xml
+    -- *select# in ~beta/xml/private/xmlbody
+  item <selector#>selector# in ~beta/xml/xml
+    -- Element#AbstractElement# in ~beta/xml/xml
+  item selector#<selector#> in ~beta/xml/xml
+    -- Element#AbstractElement# in ~beta/xml/xml
+  item *<select#> in ~beta/xml/xml
+    -- Element#AbstractElement# in ~beta/xml/xml
+  item <*>scan# in ~beta/xml/private/xmlbody
+    -- *scanElements# in /users/cpntools/cpn2000/cpnet/cpnetxml
+  item *<scan#> in ~beta/xml/xml
+    -- Element#AbstractElement# in ~beta/xml/xml
+  item *<scanElements#> in ~beta/xml/xml
+    -- Element#AbstractElement# in ~beta/xml/xml
+  item <*> in /users/cpntools/cpn2000/cpnet/cpnetxml
+    -- * in /users/cpntools/cpn2000/cpnet/cpnetxml
+  item <*> in /users/cpntools/cpn2000/cpnet/cpnetxml
+    -- load#load# in /users/cpntools/cpn2000/cpnet/cpnetxml
+  item <load#>load# in /users/cpntools/cpn2000/cpnet/cpnetxml
+    -- CPNetLoader#Loader# in /users/cpntools/cpn2000/cpnet/cpnetxml
+  item load#<load#> in /users/cpntools/cpn2000/cpnet/cpnetxml
+    -- CPNetLoader#Loader# in /users/cpntools/cpn2000/cpnet/cpnetxml
+  item <*> in /users/cpntools/cpn2000/cpntools/private/cpnworkspacebody
+    -- processCPNet# in /users/cpntools/cpn2000/cpntools/cpnworkspace
+  item <processCPNet#> in /users/cpntools/cpn2000/cpntools/cpnworkspace
+    -- WorkspaceElements# in /users/cpntools/cpn2000/cpntools/cpnworkspace
+  item <*>scanElements# in /users/cpntools/cpn2000/cpntools/private/cpnworkspacebody
+    -- * in /users/cpntools/cpn2000/cpntools/private/cpnworkspacebody
+  item *<scanElements#> in ~beta/xml/xml
+    -- Element#AbstractElement# in ~beta/xml/xml
+  item onElement#<onElement#> in ~beta/xml/xml
+    -- *select# in ~beta/xml/private/xmlbody
+  item <selector#>selector# in ~beta/xml/xml
+    -- Element#AbstractElement# in ~beta/xml/xml
+  item selector#<selector#> in ~beta/xml/xml
+    -- Element#AbstractElement# in ~beta/xml/xml
+  item *<select#> in ~beta/xml/xml
+    -- Element#AbstractElement# in ~beta/xml/xml
+  item <*>scan# in ~beta/xml/private/xmlbody
+    -- *scanElements# in /users/cpntools/cpn2000/cpntools/private/cpnworkspacebody
+  item *<scan#> in ~beta/xml/xml
+    -- Element#AbstractElement# in ~beta/xml/xml
+  item *<scanElements#> in ~beta/xml/xml
+    -- Element#AbstractElement# in ~beta/xml/xml
+  item <*> in /users/cpntools/cpn2000/cpntools/private/cpnworkspacebody
+    -- unPack# in /users/cpntools/cpn2000/cpntools/cpnworkspace
+  item <unPack#> in /users/cpntools/cpn2000/cpntools/cpnworkspace
+    -- WorkspaceElements# in /users/cpntools/cpn2000/cpntools/cpnworkspace
+  item <*> in /users/cpntools/cpn2000/cpntools/instruments/private/netinstrumentsbody
+    -- loadNetFromDisc# in /users/cpntools/cpn2000/cpntools/instruments/private/netinstrumentsbody
+  item <loadNetFromDisc#> in /users/cpntools/cpn2000/cpntools/instruments/private/netinstrumentsbody
+    -- * in /users/cpntools/cpn2000/cpntools/instruments/private/netinstrumentsbody
+  item <loadSavedNet#> in /users/cpntools/cpn2000/cpntools/instruments/private/netinstrumentsbody
+    -- * in /users/cpntools/cpn2000/cpntools/instruments/private/netinstrumentsbody
+  item <*> in /users/cpntools/cpn2000/cpntools/instruments/private/netinstrumentsbody
+    -- apply#apply#apply# in /users/cpntools/cpn2000/cpntools/instruments/netinstruments
+  item <apply#>apply#apply# in /users/cpntools/cpn2000/cpntools/instruments/netinstruments
+    -- LoadNetCommand#CPNcommand#Command#Notifier#Element# in /users/cpntools/cpn2000/cpntools/instruments/netinstruments
+  item apply#<apply#>apply# in /users/cpntools/cpn2000/cpntools/instruments/cpncommands
+    -- LoadNetCommand#CPNcommand#Command#Notifier#Element# in /users/cpntools/cpn2000/cpntools/instruments/netinstruments
+  item apply#apply#<apply#> in ~beta/postwimp/workspace
+    -- LoadNetCommand#CPNcommand#Command#Notifier#Element# in /users/cpntools/cpn2000/cpntools/instruments/netinstruments
+  item <execute#> in /users/cpntools/cpn2000/cpntools/instruments/cpncommands
+    -- HistoryCommandManager# in /users/cpntools/cpn2000/cpntools/instruments/cpncommands
+  item <apply#>apply# in /users/cpntools/cpn2000/cpntools/instruments/cpninstrument
+    -- CPNnormalInstrument#CPNsimpleinstrument#nonGenericInstrumentWithOptions#Instrument# in /users/cpntools/cpn2000/cpntools/instruments/cpninstrument
+  item apply#<apply#> in ~beta/postwimp/foundation/world
+    -- CPNnormalInstrument#CPNsimpleinstrument#nonGenericInstrumentWithOptions#Instrument# in /users/cpntools/cpn2000/cpntools/instruments/cpninstrument
+  item <apply#>apply# in ~beta/postwimp/foundation/world
+    -- LoadNetInstrument#CPNinstrument#CPNGenericInstrument#GenericInstrument#EditableInstrument#Instrument# in /users/cpntools/cpn2000/cpntools/instruments/netinstruments
+  item apply#<apply#> in ~beta/postwimp/foundation/world
+    -- LoadNetInstrument#CPNinstrument#CPNGenericInstrument#GenericInstrument#EditableInstrument#Instrument# in /users/cpntools/cpn2000/cpntools/instruments/netinstruments
+  item <*>scan# in /users/cpntools/cpn2000/cpntools/private/cpnworkspacebody
+    -- * in /users/cpntools/cpn2000/cpntools/private/cpnworkspacebody
+  item *<scan#> in ~beta/containers/container
+    -- filenames#list#container# in /users/cpntools/cpn2000/cpntools/private/cpnworkspacebody
+  item <thescanner#>theScanner# in ~beta/containers/list
+    -- filenames#list#container# in /users/cpntools/cpn2000/cpntools/private/cpnworkspacebody
+  item thescanner#<theScanner#> in ~beta/containers/container
+    -- filenames#list#container# in /users/cpntools/cpn2000/cpntools/private/cpnworkspacebody
+  item *<scan#> in ~beta/containers/container
+    -- filenames#list#container# in /users/cpntools/cpn2000/cpntools/private/cpnworkspacebody
+  item <*> in /users/cpntools/cpn2000/cpntools/private/cpnworkspacebody
+    -- parseArguments# in /users/cpntools/cpn2000/cpntools/cpnworkspace
+  item <parseArguments#> in /users/cpntools/cpn2000/cpntools/cpnworkspace
+    -- PROGRAM-~CPNWorkSpace#Workspace#World#SystemEnv#SysHead# in /users/cpntools/cpn2000/cpntools/cpntools
+  comp PROGRAM-~<CPNWorkSpace#>Workspace#World#SystemEnv#SysHead# in /users/cpntools/cpn2000/cpntools/cpnworkspace
+    -- BETAENV-~ in ~beta/basiclib/betaenv
+  comp PROGRAM-~CPNWorkSpace#<Workspace#>World#SystemEnv#SysHead# in ~beta/postwimp/workspace
+    -- BETAENV-~ in ~beta/basiclib/betaenv
+  comp PROGRAM-~CPNWorkSpace#Workspace#<World#>SystemEnv#SysHead# in ~beta/postwimp/foundation/world
+    -- BETAENV-~ in ~beta/basiclib/betaenv
+  comp PROGRAM-~CPNWorkSpace#Workspace#World#<SystemEnv#>SysHead# in ~beta/basiclib/basicsystemenv
+    -- BETAENV-~ in ~beta/basiclib/betaenv
+  comp PROGRAM-~CPNWorkSpace#Workspace#World#SystemEnv#<SysHead#> in ~beta/basiclib/basicsystemenv
+    -- BETAENV-~ in ~beta/basiclib/betaenv
+
+  item attNext#<realValue#> in ~beta/basiclib/betaenv
+    -- BETAENV-~ in ~beta/basiclib/betaenv
+  item <*> in ~beta/postwimp/foundation/private/glutsystemenv_unixbody
+    -- Idle# in ~beta/postwimp/foundation/private/glutsystemenv_unixbody
+  item <Idle#> in ~beta/postwimp/foundation/private/glutsystemenv_unixbody
+    -- BASICSCHEDULER-~ in ~beta/postwimp/foundation/private/glutsystemenv_unixbody
+  item <action#>action# in ~beta/postwimp/foundation/private/glutsystemenv_unixbody
+    -- *Timer# in ~beta/postwimp/foundation/private/glutsystemenv_unixbody
+  item action#<action#> in ~beta/postwimp/foundation/abstractsurface
+    -- *Timer# in ~beta/postwimp/foundation/private/glutsystemenv_unixbody
+  item <fire#> in ~beta/postwimp/foundation/abstractsurface
+    -- *Timer# in ~beta/postwimp/foundation/private/glutsystemenv_unixbody
+  item <*>scan# in ~beta/postwimp/foundation/gtksurface
+    -- check# in ~beta/postwimp/foundation/gtksurface
+  item *<scan#> in ~beta/containers/container
+    -- timers#list#container# in ~beta/postwimp/foundation/gtksurface
+  item <thescanner#>theScanner# in ~beta/containers/list
+    -- timers#list#container# in ~beta/postwimp/foundation/gtksurface
+  item thescanner#<theScanner#> in ~beta/containers/container
+    -- timers#list#container# in ~beta/postwimp/foundation/gtksurface
+  item *<scan#> in ~beta/containers/container
+    -- timers#list#container# in ~beta/postwimp/foundation/gtksurface
+  item <check#> in ~beta/postwimp/foundation/gtksurface
+    -- timers#list#container# in ~beta/postwimp/foundation/gtksurface
+  item <idle#>GCallBack# in ~beta/postwimp/foundation/gtksurface
+    -- GLUTSurface#Surface# in ~beta/postwimp/foundation/gtksurface
+  item idle#<GCallBack#> in ~beta/postwimp/platform/gtk/glslib
+    -- BETAENV-~ in ~beta/basiclib/betaenv
+  item <idle#>GCallBack# in ~beta/postwimp/foundation/gtksurface
+    -- GLUTSurface#Surface# in ~beta/postwimp/foundation/gtksurface
+  [ EXTERNAL ACTIVATION PART ]
+  item <run#>run# in ~beta/postwimp/foundation/gtksurface
+    -- GLUTSurface#Surface# in ~beta/postwimp/foundation/gtksurface
+  item <attNext#>realValue# in ~beta/basiclib/private/basicsystemenvbody
+    -- BASICSYSTEMENVPRIVATE-~ in ~beta/basiclib/private/basicsystemenvbody
+  comp <BASICSCHEDULER-~> in ~beta/postwimp/foundation/private/glutsystemenv_unixbody
+    -- PROGRAM-~CPNWorkSpace#Workspace#World#SystemEnv#SysHead# in /users/cpntools/cpn2000/cpntools/cpntools
+
+  item <*> in ~beta/basiclib/betaenv
+    -- BETAENV-~ in ~beta/basiclib/betaenv
+  basic component in ~beta/basiclib/betaenv
+
+
+Low level information:
+
+Call chain: (linux)
+
+  item <*> in /users/cpntools/cpn2000/cpnet/cpnetxml
+  { PC  0x82b4a20 <M177CPNETXML+0x29f>, object 0x96d5978, proto 0x848ab52 * [ast: 0x0001,0x133a] <T177CPNETXML> }
+    -- load#load#load# in /users/cpntools/cpn2000/cpnet/cpnetxml
+    { Surrounding object 0x96d52e8, proto 0x848ab16 load# [ast: 0x0001,0x132e] <T176CPNETXML> }
+  item <load#>load#load# in /users/cpntools/cpn2000/cpnet/cpnetxml
+  { PC  0x82b4780 <M176CPNETXML+0x16>, object 0x96d52e8, proto 0x848ab16 load# [ast: 0x0001,0x132e] <T176CPNETXML> }
+    -- PageInstanceLoader#NotifierLoader#Loader# in /users/cpntools/cpn2000/cpnet/cpnetxml
+    { Surrounding object 0x905d550, proto 0x848aac8 PageInstanceLoader# [ast: 0x0001,0x1326] <T175CPNETXML> }
+  item load#<load#>load# in /users/cpntools/cpn2000/cpnet/cpnetxml
+  { PC  0x82be214 <M15CPNETXML+0x8f>, object 0x96d52e8, proto 0x8488258 load# [ast: 0x0001,0x00de] <T15CPNETXML> }
+    -- PageInstanceLoader#NotifierLoader#Loader# in /users/cpntools/cpn2000/cpnet/cpnetxml
+    { Surrounding object 0x905d550, proto 0x848aac8 PageInstanceLoader# [ast: 0x0001,0x1326] <T175CPNETXML> }
+  item load#load#<load#> in /users/cpntools/cpn2000/cpnet/cpnetxml
+  { PC  0x82be52b <M4CPNETXML+0xa>, object 0x96d52e8, proto 0x8487f8a load# [ast: 0x0001,0x001f] <T4CPNETXML> }
+    -- PageInstanceLoader#NotifierLoader#Loader# in /users/cpntools/cpn2000/cpnet/cpnetxml
+    { Surrounding object 0x905d550, proto 0x848aac8 PageInstanceLoader# [ast: 0x0001,0x1326] <T175CPNETXML> }
+  item <*>scanElements# in /users/cpntools/cpn2000/cpnet/cpnetxml
+  { PC  0x82b1a81 <M228CPNETXML+0x91>, object 0x96d5150, proto 0x848b648 * [ast: 0x0001,0x1a1f] <T228CPNETXML> }
+    -- *scanElements# in /users/cpntools/cpn2000/cpnet/cpnetxml
+    { Surrounding object 0x96d4d98, proto 0x848b616 * [ast: 0x0001,0x1a0d] <T227CPNETXML> }
+  item *<scanElements#> in ~beta/xml/xml
+  { PC  0x82c5c26 <M3ELEMENTSCANELEMENTS+0x41>, object 0x96d5150, proto 0x854c97e scanElements# [ast: 0x0001,0x00f8] <T19XML> }
+    -- Element#AbstractElement# in ~beta/xml/xml
+    { Surrounding object 0x9044558, proto 0x854c826 Element# [ast: 0x0001,0x00af] <T13XML> }
+  item onElement#<onElement#> in ~beta/xml/xml
+  { PC  0x83e6c32 <M5XML+0xa>, object 0x96d5218, proto 0x854c666 onElement# [ast: 0x0001,0x0024] <T5XML> }
+    -- *select# in ~beta/xml/private/xmlbody
+    { Surrounding object 0x96d51f8, proto 0x84906c6 * [ast: 0x0007,0x0008] <T2ELEMENTSCANELEMENTS> }
+  item <selector#>selector# in ~beta/xml/xml
+  { PC  0x83e69e9 <M24XML+0x46>, object 0x96d5208, proto 0x854ca8e selector# [ast: 0x0001,0x0135] <T24XML> }
+    -- Element#AbstractElement# in ~beta/xml/xml
+    { Surrounding object 0x9044888, proto 0x854c826 Element# [ast: 0x0001,0x00af] <T13XML> }
+  item selector#<selector#> in ~beta/xml/xml
+  { PC  0x83e6bd6 <M7XML+0xa>, object 0x96d5208, proto 0x854c6ce selector# [ast: 0x0001,0x0048] <T7XML> }
+    -- Element#AbstractElement# in ~beta/xml/xml
+    { Surrounding object 0x9044888, proto 0x854c826 Element# [ast: 0x0001,0x00af] <T13XML> }
+  item *<select#> in ~beta/xml/xml
+  { PC  0x83e6c16 <M4XML+0x3c>, object 0x96d51f8, proto 0x854c62e select# [ast: 0x0001,0x0020] <T4XML> }
+    -- Element#AbstractElement# in ~beta/xml/xml
+    { Surrounding object 0x9044888, proto 0x854c826 Element# [ast: 0x0001,0x00af] <T13XML> }
+  item <*>scan# in ~beta/xml/private/xmlbody
+  { PC  0x82c5bd0 <M1ELEMENTSCANELEMENTS+0x16>, object 0x96d5188, proto 0x8490694 * [ast: 0x0007,0x0002] <T1ELEMENTSCANELEMENTS> }
+    -- *scanElements# in /users/cpntools/cpn2000/cpnet/cpnetxml
+    { Surrounding object 0x96d5150, proto 0x848b648 * [ast: 0x0001,0x1a1f] <T228CPNETXML> }
+  item *<scan#> in ~beta/xml/xml
+  { PC  0x82c5aa7 <M17XML+0x63>, object 0x96d5188, proto 0x854c914 scan# [ast: 0x0001,0x00e3] <T17XML> }
+    -- Element#AbstractElement# in ~beta/xml/xml
+    { Surrounding object 0x9044558, proto 0x854c826 Element# [ast: 0x0001,0x00af] <T13XML> }
+  item *<scanElements#> in ~beta/xml/xml
+  { PC  0x82c5ba0 <M19XML+0x28>, object 0x96d5150, proto 0x854c97e scanElements# [ast: 0x0001,0x00f8] <T19XML> }
+    -- Element#AbstractElement# in ~beta/xml/xml
+    { Surrounding object 0x9044558, proto 0x854c826 Element# [ast: 0x0001,0x00af] <T13XML> }
+  item <*>scanElements# in /users/cpntools/cpn2000/cpnet/cpnetxml
+  { PC  0x82b19db <M227CPNETXML+0x5a>, object 0x96d4d98, proto 0x848b616 * [ast: 0x0001,0x1a0d] <T227CPNETXML> }
+    -- * in /users/cpntools/cpn2000/cpnet/cpnetxml
+    { Surrounding object 0x96d4d88, proto 0x848b5ec * [ast: 0x0001,0x1a04] <T226CPNETXML> }
+  item *<scanElements#> in ~beta/xml/xml
+  { PC  0x82c5c26 <M3ELEMENTSCANELEMENTS+0x41>, object 0x96d4d98, proto 0x854c97e scanElements# [ast: 0x0001,0x00f8] <T19XML> }
+    -- Element#AbstractElement# in ~beta/xml/xml
+    { Surrounding object 0x8fe72b8, proto 0x854c826 Element# [ast: 0x0001,0x00af] <T13XML> }
+  item onElement#<onElement#> in ~beta/xml/xml
+  { PC  0x83e6c32 <M5XML+0xa>, object 0x96d5080, proto 0x854c666 onElement# [ast: 0x0001,0x0024] <T5XML> }
+    -- *select# in ~beta/xml/private/xmlbody
+    { Surrounding object 0x96d5060, proto 0x84906c6 * [ast: 0x0007,0x0008] <T2ELEMENTSCANELEMENTS> }
+  item <selector#>selector# in ~beta/xml/xml
+  { PC  0x83e69e9 <M24XML+0x46>, object 0x96d5070, proto 0x854ca8e selector# [ast: 0x0001,0x0135] <T24XML> }
+    -- Element#AbstractElement# in ~beta/xml/xml
+    { Surrounding object 0x9044558, proto 0x854c826 Element# [ast: 0x0001,0x00af] <T13XML> }
+  item selector#<selector#> in ~beta/xml/xml
+  { PC  0x83e6bd6 <M7XML+0xa>, object 0x96d5070, proto 0x854c6ce selector# [ast: 0x0001,0x0048] <T7XML> }
+    -- Element#AbstractElement# in ~beta/xml/xml
+    { Surrounding object 0x9044558, proto 0x854c826 Element# [ast: 0x0001,0x00af] <T13XML> }
+  item *<select#> in ~beta/xml/xml
+  { PC  0x83e6c16 <M4XML+0x3c>, object 0x96d5060, proto 0x854c62e select# [ast: 0x0001,0x0020] <T4XML> }
+    -- Element#AbstractElement# in ~beta/xml/xml
+    { Surrounding object 0x9044558, proto 0x854c826 Element# [ast: 0x0001,0x00af] <T13XML> }
+  item <*>scan# in ~beta/xml/private/xmlbody
+  { PC  0x82c5bd0 <M1ELEMENTSCANELEMENTS+0x16>, object 0x96d4dd0, proto 0x8490694 * [ast: 0x0007,0x0002] <T1ELEMENTSCANELEMENTS> }
+    -- *scanElements# in /users/cpntools/cpn2000/cpnet/cpnetxml
+    { Surrounding object 0x96d4d98, proto 0x848b616 * [ast: 0x0001,0x1a0d] <T227CPNETXML> }
+  item *<scan#> in ~beta/xml/xml
+  { PC  0x82c5aa7 <M17XML+0x63>, object 0x96d4dd0, proto 0x854c914 scan# [ast: 0x0001,0x00e3] <T17XML> }
+    -- Element#AbstractElement# in ~beta/xml/xml
+    { Surrounding object 0x8fe72b8, proto 0x854c826 Element# [ast: 0x0001,0x00af] <T13XML> }
+  item *<scanElements#> in ~beta/xml/xml
+  { PC  0x82c5ba0 <M19XML+0x28>, object 0x96d4d98, proto 0x854c97e scanElements# [ast: 0x0001,0x00f8] <T19XML> }
+    -- Element#AbstractElement# in ~beta/xml/xml
+    { Surrounding object 0x8fe72b8, proto 0x854c826 Element# [ast: 0x0001,0x00af] <T13XML> }
+  item <*> in /users/cpntools/cpn2000/cpnet/cpnetxml
+  { PC  0x82b193c <M226CPNETXML+0x19>, object 0x96d4d88, proto 0x848b5ec * [ast: 0x0001,0x1a04] <T226CPNETXML> }
+    -- * in /users/cpntools/cpn2000/cpnet/cpnetxml
+    { Surrounding object 0x905d490, proto 0x848b490 * [ast: 0x0001,0x195a] <T219CPNETXML> }
+  item <*> in /users/cpntools/cpn2000/cpnet/cpnetxml
+  { PC  0x82b1414 <M219CPNETXML+0x146>, object 0x905d490, proto 0x848b490 * [ast: 0x0001,0x195a] <T219CPNETXML> }
+    -- load#load# in /users/cpntools/cpn2000/cpnet/cpnetxml
+    { Surrounding object 0x905d4a0, proto 0x84882d4 load# [ast: 0x0001,0x00ff] <T17CPNETXML> }
+  item <load#>load# in /users/cpntools/cpn2000/cpnet/cpnetxml
+  { PC  0x82b10c3 <M17CPNETXML+0x24>, object 0x905d4a0, proto 0x84882d4 load# [ast: 0x0001,0x00ff] <T17CPNETXML> }
+    -- CPNetLoader#Loader# in /users/cpntools/cpn2000/cpnet/cpnetxml
+    { Surrounding object 0x905d5d8, proto 0x848828e CPNetLoader# [ast: 0x0001,0x00f7] <T16CPNETXML> }
+  item load#<load#> in /users/cpntools/cpn2000/cpnet/cpnetxml
+  { PC  0x82be52b <M4CPNETXML+0xa>, object 0x905d4a0, proto 0x8487f8a load# [ast: 0x0001,0x001f] <T4CPNETXML> }
+    -- CPNetLoader#Loader# in /users/cpntools/cpn2000/cpnet/cpnetxml
+    { Surrounding object 0x905d5d8, proto 0x848828e CPNetLoader# [ast: 0x0001,0x00f7] <T16CPNETXML> }
+  item <*> in /users/cpntools/cpn2000/cpntools/private/cpnworkspacebody
+  { PC  0x82a4a10 <M3LOADPROCESSCPNET+0x6c>, object 0x905d5c8, proto 0x848626e * [ast: 0x0003,0x00a0] <T3LOADPROCESSCPNET> }
+    -- processCPNet# in /users/cpntools/cpn2000/cpntools/cpnworkspace
+    { Surrounding object 0x905aee0, proto 0x84eba9c processCPNet# [ast: 0x0001,0x0635] <T57CPNWORKSPACE> }
+  item <processCPNet#> in /users/cpntools/cpn2000/cpntools/cpnworkspace
+  { PC  0x82a4987 <M57CPNWORKSPACE+0x475>, object 0x905aee0, proto 0x84eba9c processCPNet# [ast: 0x0001,0x0635] <T57CPNWORKSPACE> }
+    -- WorkspaceElements# in /users/cpntools/cpn2000/cpntools/cpnworkspace
+    { Surrounding object 0x9059e78, proto 0x84eba5c WorkspaceElements# [ast: 0x0001,0x0631] <T56CPNWORKSPACE> }
+  item <*>scanElements# in /users/cpntools/cpn2000/cpntools/private/cpnworkspacebody
+  { PC  0x82a4fe5 <M6WORKSPACEELEMENTSUNPACK+0xaa>, object 0x905a378, proto 0x8486434 * [ast: 0x0004,0x00cc] <T6WORKSPACEELEMENTSUNPACK> }
+    -- * in /users/cpntools/cpn2000/cpntools/private/cpnworkspacebody
+    { Surrounding object 0x905a420, proto 0x84862a2 * [ast: 0x0004,0x0003] <T1WORKSPACEELEMENTSUNPACK> }
+  item *<scanElements#> in ~beta/xml/xml
+  { PC  0x82c5c26 <M3ELEMENTSCANELEMENTS+0x41>, object 0x905a378, proto 0x854c97e scanElements# [ast: 0x0001,0x00f8] <T19XML> }
+    -- Element#AbstractElement# in ~beta/xml/xml
+    { Surrounding object 0x8fe7298, proto 0x854c826 Element# [ast: 0x0001,0x00af] <T13XML> }
+  item onElement#<onElement#> in ~beta/xml/xml
+  { PC  0x83e6c32 <M5XML+0xa>, object 0x905a390, proto 0x854c666 onElement# [ast: 0x0001,0x0024] <T5XML> }
+    -- *select# in ~beta/xml/private/xmlbody
+    { Surrounding object 0x905a3b0, proto 0x84906c6 * [ast: 0x0007,0x0008] <T2ELEMENTSCANELEMENTS> }
+  item <selector#>selector# in ~beta/xml/xml
+  { PC  0x83e69e9 <M24XML+0x46>, object 0x905a3a0, proto 0x854ca8e selector# [ast: 0x0001,0x0135] <T24XML> }
+    -- Element#AbstractElement# in ~beta/xml/xml
+    { Surrounding object 0x8fe72b8, proto 0x854c826 Element# [ast: 0x0001,0x00af] <T13XML> }
+  item selector#<selector#> in ~beta/xml/xml
+  { PC  0x83e6bd6 <M7XML+0xa>, object 0x905a3a0, proto 0x854c6ce selector# [ast: 0x0001,0x0048] <T7XML> }
+    -- Element#AbstractElement# in ~beta/xml/xml
+    { Surrounding object 0x8fe72b8, proto 0x854c826 Element# [ast: 0x0001,0x00af] <T13XML> }
+  item *<select#> in ~beta/xml/xml
+  { PC  0x83e6c16 <M4XML+0x3c>, object 0x905a3b0, proto 0x854c62e select# [ast: 0x0001,0x0020] <T4XML> }
+    -- Element#AbstractElement# in ~beta/xml/xml
+    { Surrounding object 0x8fe72b8, proto 0x854c826 Element# [ast: 0x0001,0x00af] <T13XML> }
+  item <*>scan# in ~beta/xml/private/xmlbody
+  { PC  0x82c5bd0 <M1ELEMENTSCANELEMENTS+0x16>, object 0x905a3c0, proto 0x8490694 * [ast: 0x0007,0x0002] <T1ELEMENTSCANELEMENTS> }
+    -- *scanElements# in /users/cpntools/cpn2000/cpntools/private/cpnworkspacebody
+    { Surrounding object 0x905a378, proto 0x8486434 * [ast: 0x0004,0x00cc] <T6WORKSPACEELEMENTSUNPACK> }
+  item *<scan#> in ~beta/xml/xml
+  { PC  0x82c5aa7 <M17XML+0x63>, object 0x905a3c0, proto 0x854c914 scan# [ast: 0x0001,0x00e3] <T17XML> }
+    -- Element#AbstractElement# in ~beta/xml/xml
+    { Surrounding object 0x8fe7298, proto 0x854c826 Element# [ast: 0x0001,0x00af] <T13XML> }
+  item *<scanElements#> in ~beta/xml/xml
+  { PC  0x82c5ba0 <M19XML+0x28>, object 0x905a378, proto 0x854c97e scanElements# [ast: 0x0001,0x00f8] <T19XML> }
+    -- Element#AbstractElement# in ~beta/xml/xml
+    { Surrounding object 0x8fe7298, proto 0x854c826 Element# [ast: 0x0001,0x00af] <T13XML> }
+  item <*> in /users/cpntools/cpn2000/cpntools/private/cpnworkspacebody
+  { PC  0x82a4f0a <M1WORKSPACEELEMENTSUNPACK+0x216>, object 0x905a420, proto 0x84862a2 * [ast: 0x0004,0x0003] <T1WORKSPACEELEMENTSUNPACK> }
+    -- unPack# in /users/cpntools/cpn2000/cpntools/cpnworkspace
+    { Surrounding object 0x905af18, proto 0x84ebae4 unPack# [ast: 0x0001,0x065b] <T58CPNWORKSPACE> }
+  item <unPack#> in /users/cpntools/cpn2000/cpntools/cpnworkspace
+  { PC  0x82a4ced <M58CPNWORKSPACE+0x33>, object 0x905af18, proto 0x84ebae4 unPack# [ast: 0x0001,0x065b] <T58CPNWORKSPACE> }
+    -- WorkspaceElements# in /users/cpntools/cpn2000/cpntools/cpnworkspace
+    { Surrounding object 0x9059e78, proto 0x84eba5c WorkspaceElements# [ast: 0x0001,0x0631] <T56CPNWORKSPACE> }
+  item <*> in /users/cpntools/cpn2000/cpntools/instruments/private/netinstrumentsbody
+  { PC  0x81d1464 <M7LOADNETCOMMANDAPPLY+0x8ad>, object 0x8fe6dc0, proto 0x845bed8 * [ast: 0x0003,0x0074] <T7LOADNETCOMMANDAPPLY> }
+    -- loadNetFromDisc# in /users/cpntools/cpn2000/cpntools/instruments/private/netinstrumentsbody
+    { Surrounding object 0x8fe6dd0, proto 0x845bd62 loadNetFromDisc# [ast: 0x0003,0x002a] <T4LOADNETCOMMANDAPPLY> }
+  item <loadNetFromDisc#> in /users/cpntools/cpn2000/cpntools/instruments/private/netinstrumentsbody
+  { PC  0x81d09dd <M4LOADNETCOMMANDAPPLY+0x27>, object 0x8fe6dd0, proto 0x845bd62 loadNetFromDisc# [ast: 0x0003,0x002a] <T4LOADNETCOMMANDAPPLY> }
+    -- * in /users/cpntools/cpn2000/cpntools/instruments/private/netinstrumentsbody
+    { Surrounding object 0x8fe4978, proto 0x845bcba * [ast: 0x0003,0x0002] <T1LOADNETCOMMANDAPPLY> }
+  item <loadSavedNet#> in /users/cpntools/cpn2000/cpntools/instruments/private/netinstrumentsbody
+  { PC  0x81d033a <M15LOADNETCOMMANDAPPLY+0x30b>, object 0x8fe49b8, proto 0x845c094 loadSavedNet# [ast: 0x0003,0x01fc] <T15LOADNETCOMMANDAPPLY> }
+    -- * in /users/cpntools/cpn2000/cpntools/instruments/private/netinstrumentsbody
+    { Surrounding object 0x8fe4978, proto 0x845bcba * [ast: 0x0003,0x0002] <T1LOADNETCOMMANDAPPLY> }
+  item <*> in /users/cpntools/cpn2000/cpntools/instruments/private/netinstrumentsbody
+  { PC  0x81cf1c2 <M1LOADNETCOMMANDAPPLY+0xff>, object 0x8fe4978, proto 0x845bcba * [ast: 0x0003,0x0002] <T1LOADNETCOMMANDAPPLY> }
+    -- apply#apply#apply# in /users/cpntools/cpn2000/cpntools/instruments/netinstruments
+    { Surrounding object 0x8fe50c8, proto 0x84d60aa apply# [ast: 0x0001,0x03bb] <T39NETINSTRUMENTS> }
+  item <apply#>apply#apply# in /users/cpntools/cpn2000/cpntools/instruments/netinstruments
+  { PC  0x81cf0bf <M39NETINSTRUMENTS+0x25>, object 0x8fe50c8, proto 0x84d60aa apply# [ast: 0x0001,0x03bb] <T39NETINSTRUMENTS> }
+    -- LoadNetCommand#CPNcommand#Command#Notifier#Element# in /users/cpntools/cpn2000/cpntools/instruments/netinstruments
+    { Surrounding object 0x8fe4f88, proto 0x84d5f0e LoadNetCommand# [ast: 0x0001,0x0378] <T35NETINSTRUMENTS> }
+  item apply#<apply#>apply# in /users/cpntools/cpn2000/cpntools/instruments/cpncommands
+  { PC  0x839098c <M26CPNCOMMANDS+0xfc>, object 0x8fe50c8, proto 0x84fca12 apply# [ast: 0x0001,0x0172] <T26CPNCOMMANDS> }
+    -- LoadNetCommand#CPNcommand#Command#Notifier#Element# in /users/cpntools/cpn2000/cpntools/instruments/netinstruments
+    { Surrounding object 0x8fe4f88, proto 0x84d5f0e LoadNetCommand# [ast: 0x0001,0x0378] <T35NETINSTRUMENTS> }
+  item apply#apply#<apply#> in ~beta/postwimp/workspace
+  { PC  0x83dc481 <M35WORKSPACE+0xa>, object 0x8fe50c8, proto 0x8539a78 apply# [ast: 0x0001,0x024e] <T35WORKSPACE> }
+    -- LoadNetCommand#CPNcommand#Command#Notifier#Element# in /users/cpntools/cpn2000/cpntools/instruments/netinstruments
+    { Surrounding object 0x8fe4f88, proto 0x84d5f0e LoadNetCommand# [ast: 0x0001,0x0378] <T35NETINSTRUMENTS> }
+  item <execute#> in /users/cpntools/cpn2000/cpntools/instruments/cpncommands
+  { PC  0x8391165 <M2CPNCOMMANDS+0x22>, object 0x8fe4a40, proto 0x84fc2b6 execute# [ast: 0x0001,0x0007] <T2CPNCOMMANDS> }
+    -- HistoryCommandManager# in /users/cpntools/cpn2000/cpntools/instruments/cpncommands
+    { Surrounding object 0x8fe4a68, proto 0x84fc276 HistoryCommandManager# [ast: 0x0001,0x0003] <T1CPNCOMMANDS> }
+  item <apply#>apply# in /users/cpntools/cpn2000/cpntools/instruments/cpninstrument
+  { PC  0x838b43f <M10CPNINSTRUMENT+0x198>, object 0x8fe4a58, proto 0x84f936c apply# [ast: 0x0001,0x00e4] <T10CPNINSTRUMENT> }
+    -- CPNnormalInstrument#CPNsimpleinstrument#nonGenericInstrumentWithOptions#Instrument# in /users/cpntools/cpn2000/cpntools/instruments/cpninstrument
+    { Surrounding object 0x8fe4918, proto 0x84f9ea4 CPNnormalInstrument# [ast: 0x0001,0x0412] <T45CPNINSTRUMENT> }
+  item apply#<apply#> in ~beta/postwimp/foundation/world
+  { PC  0x83e28a5 <M124WORLD+0x46>, object 0x8fe4a58, proto 0x8546db0 apply# [ast: 0x0001,0x084d] <T124WORLD> }
+    -- CPNnormalInstrument#CPNsimpleinstrument#nonGenericInstrumentWithOptions#Instrument# in /users/cpntools/cpn2000/cpntools/instruments/cpninstrument
+    { Surrounding object 0x8fe4918, proto 0x84f9ea4 CPNnormalInstrument# [ast: 0x0001,0x0412] <T45CPNINSTRUMENT> }
+  item <apply#>apply# in ~beta/postwimp/foundation/world
+  { PC  0x83e22bc <M145WORLD+0x5c>, object 0x8fe4a78, proto 0x8547310 apply# [ast: 0x0001,0x09f4] <T145WORLD> }
+    -- LoadNetInstrument#CPNinstrument#CPNGenericInstrument#GenericInstrument#EditableInstrument#Instrument# in /users/cpntools/cpn2000/cpntools/instruments/netinstruments
+    { Surrounding object 0x8fe3618, proto 0x84d5c2c LoadNetInstrument# [ast: 0x0001,0x0301] <T29NETINSTRUMENTS> }
+  item apply#<apply#> in ~beta/postwimp/foundation/world
+  { PC  0x83e28a5 <M124WORLD+0x46>, object 0x8fe4a78, proto 0x8546db0 apply# [ast: 0x0001,0x084d] <T124WORLD> }
+    -- LoadNetInstrument#CPNinstrument#CPNGenericInstrument#GenericInstrument#EditableInstrument#Instrument# in /users/cpntools/cpn2000/cpntools/instruments/netinstruments
+    { Surrounding object 0x8fe3618, proto 0x84d5c2c LoadNetInstrument# [ast: 0x0001,0x0301] <T29NETINSTRUMENTS> }
+  item <*>scan# in /users/cpntools/cpn2000/cpntools/private/cpnworkspacebody
+  { PC  0x82a5e87 <M6PARSEARGUMENTS+0x22a>, object 0x8fe36b8, proto 0x84865e6 * [ast: 0x0005,0x00e8] <T6PARSEARGUMENTS> }
+    -- * in /users/cpntools/cpn2000/cpntools/private/cpnworkspacebody
+    { Surrounding object 0x8fe36f8, proto 0x8486468 * [ast: 0x0005,0x0002] <T1PARSEARGUMENTS> }
+  item *<scan#> in ~beta/containers/container
+  { PC  0x82d9fd5 <M7CONTAINER+0x96>, object 0x8fe36b8, proto 0x8555c1e scan# [ast: 0x0001,0x0073] <T7CONTAINER> }
+    -- filenames#list#container# in /users/cpntools/cpn2000/cpntools/private/cpnworkspacebody
+    { Surrounding object 0x8fe3708, proto 0x84864aa filenames# [ast: 0x0005,0x000a] <T2PARSEARGUMENTS> }
+  item <thescanner#>theScanner# in ~beta/containers/list
+  { PC  0x82d90f4 <M26LIST+0x109>, object 0x8fe3b50, proto 0x8555434 thescanner# [ast: 0x0001,0x0179] <T26LIST> }
+    -- filenames#list#container# in /users/cpntools/cpn2000/cpntools/private/cpnworkspacebody
+    { Surrounding object 0x8fe3708, proto 0x84864aa filenames# [ast: 0x0005,0x000a] <T2PARSEARGUMENTS> }
+  item thescanner#<theScanner#> in ~beta/containers/container
+  { PC  0x82d9f0d <M6CONTAINER+0x38>, object 0x8fe3b50, proto 0x8555be4 theScanner# [ast: 0x0001,0x005b] <T6CONTAINER> }
+    -- filenames#list#container# in /users/cpntools/cpn2000/cpntools/private/cpnworkspacebody
+    { Surrounding object 0x8fe3708, proto 0x84864aa filenames# [ast: 0x0005,0x000a] <T2PARSEARGUMENTS> }
+  item *<scan#> in ~beta/containers/container
+  { PC  0x82d9fc9 <M7CONTAINER+0x8a>, object 0x8fe36b8, proto 0x8555c1e scan# [ast: 0x0001,0x0073] <T7CONTAINER> }
+    -- filenames#list#container# in /users/cpntools/cpn2000/cpntools/private/cpnworkspacebody
+    { Surrounding object 0x8fe3708, proto 0x84864aa filenames# [ast: 0x0005,0x000a] <T2PARSEARGUMENTS> }
+  item <*> in /users/cpntools/cpn2000/cpntools/private/cpnworkspacebody
+  { PC  0x82a5c49 <M1PARSEARGUMENTS+0x568>, object 0x8fe36f8, proto 0x8486468 * [ast: 0x0005,0x0002] <T1PARSEARGUMENTS> }
+    -- parseArguments# in /users/cpntools/cpn2000/cpntools/cpnworkspace
+    { Surrounding object 0x8fe3bf0, proto 0x84ec108 parseArguments# [ast: 0x0001,0x0894] <T84CPNWORKSPACE> }
+  item <parseArguments#> in /users/cpntools/cpn2000/cpntools/cpnworkspace
+  { PC  0x82a56b1 <M84CPNWORKSPACE+0x28>, object 0x8fe3bf0, proto 0x84ec108 parseArguments# [ast: 0x0001,0x0894] <T84CPNWORKSPACE> }
+    -- PROGRAM-~CPNWorkSpace#Workspace#World#SystemEnv#SysHead# in /users/cpntools/cpn2000/cpntools/cpntools
+    { Surrounding object 0x8e9fd98, proto 0x84975aa PROGRAM-~ [ast: 0x0001,0x0001] <T1PROGRAM> }
+  comp PROGRAM-~<CPNWorkSpace#>Workspace#World#SystemEnv#SysHead# in /users/cpntools/cpn2000/cpntools/cpnworkspace
+  { PC  0x8377399 <M1CPNWORKSPACE+0x16>, object 0x8e9fd98, proto 0x84ea602 CPNWorkSpace# [ast: 0x0001,0x0003] <T1CPNWORKSPACE> }
+    -- BETAENV-~ in ~beta/basiclib/betaenv
+    { Surrounding object 0x8ea0af8, proto 0x8441dd0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+  comp PROGRAM-~CPNWorkSpace#<Workspace#>World#SystemEnv#SysHead# in ~beta/postwimp/workspace
+  { PC  0x83bf092 <M1WORKSPACE+0x1e>, object 0x8e9fd98, proto 0x8538f0a Workspace# [ast: 0x0001,0x0003] <T1WORKSPACE> }
+    -- BETAENV-~ in ~beta/basiclib/betaenv
+    { Surrounding object 0x8ea0af8, proto 0x8441dd0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+  comp PROGRAM-~CPNWorkSpace#Workspace#<World#>SystemEnv#SysHead# in ~beta/postwimp/foundation/world
+  { PC  0x83dd2fb <M27WORLD+0x1e>, object 0x8e9fd98, proto 0x85452f0 World# [ast: 0x0001,0x00c6] <T27WORLD> }
+    -- BETAENV-~ in ~beta/basiclib/betaenv
+    { Surrounding object 0x8ea0af8, proto 0x8441dd0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+  comp PROGRAM-~CPNWorkSpace#Workspace#World#<SystemEnv#>SysHead# in ~beta/basiclib/basicsystemenv
+  { PC  0x83ef324 <M4BASICSYSTEMENV+0x1d>, object 0x8e9fd98, proto 0x85560f0 SystemEnv# [ast: 0x0001,0x002e] <T4BASICSYSTEMENV> }
+    -- BETAENV-~ in ~beta/basiclib/betaenv
+    { Surrounding object 0x8ea0af8, proto 0x8441dd0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+  comp PROGRAM-~CPNWorkSpace#Workspace#World#SystemEnv#<SysHead#> in ~beta/basiclib/basicsystemenv
+  { PC  0x83ef1cf <M56BASICSYSTEMENV+0xa>, object 0x8e9fd98, proto 0x8556daa SysHead# [ast: 0x0001,0x0310] <T56BASICSYSTEMENV> }
+    -- BETAENV-~ in ~beta/basiclib/betaenv
+    { Surrounding object 0x8ea0af8, proto 0x8441dd0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+
+  item attNext#<realValue#> in ~beta/basiclib/betaenv
+  { PC  0x8187e9b <M37BETAENV+0xa>, object 0x8ea12d0, proto 0x844222e realValue# [ast: 0x0001,0x0150] <T37BETAENV> }
+    -- BETAENV-~ in ~beta/basiclib/betaenv
+    { Surrounding object 0x8ea0af8, proto 0x8441dd0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+  item <*> in ~beta/postwimp/foundation/private/glutsystemenv_unixbody
+  { PC  0x818f9ec <M6BASICSCHEDULER+0x1e>, object 0x8ea0c20, proto 0x8445dbe * [ast: 0x0001,0x0050] <T6BASICSCHEDULER> }
+    -- Idle# in ~beta/postwimp/foundation/private/glutsystemenv_unixbody
+    { Surrounding object 0x8ea0c30, proto 0x8445d90 Idle# [ast: 0x0001,0x0049] <T5BASICSCHEDULER> }
+  item <Idle#> in ~beta/postwimp/foundation/private/glutsystemenv_unixbody
+  { PC  0x818f9ca <M5BASICSCHEDULER+0x24>, object 0x8ea0c30, proto 0x8445d90 Idle# [ast: 0x0001,0x0049] <T5BASICSCHEDULER> }
+    -- BASICSCHEDULER-~ in ~beta/postwimp/foundation/private/glutsystemenv_unixbody
+    { Surrounding object 0x8ea0e70, proto 0x8445c72 BASICSCHEDULER-~ [ast: 0x0001,0x0001] <T1BASICSCHEDULER> }
+  item <action#>action# in ~beta/postwimp/foundation/private/glutsystemenv_unixbody
+  { PC  0x818f946 <M10BASICSCHEDULER+0x1b>, object 0x8ea0c40, proto 0x8445e96 action# [ast: 0x0001,0x009e] <T10BASICSCHEDULER> }
+    -- *Timer# in ~beta/postwimp/foundation/private/glutsystemenv_unixbody
+    { Surrounding object 0x8ea1e60, proto 0x8445e62 * [ast: 0x0001,0x0098] <T9BASICSCHEDULER> }
+  item action#<action#> in ~beta/postwimp/foundation/abstractsurface
+  { PC  0x83e79d9 <M117ABSTRACTSURFACE+0xa>, object 0x8ea0c40, proto 0x854fb46 action# [ast: 0x0001,0x0875] <T117ABSTRACTSURFACE> }
+    -- *Timer# in ~beta/postwimp/foundation/private/glutsystemenv_unixbody
+    { Surrounding object 0x8ea1e60, proto 0x8445e62 * [ast: 0x0001,0x0098] <T9BASICSCHEDULER> }
+  item <fire#> in ~beta/postwimp/foundation/abstractsurface
+  { PC  0x83e7899 <M120ABSTRACTSURFACE+0x1e>, object 0x8ea0c50, proto 0x854fbd4 fire# [ast: 0x0001,0x08b0] <T120ABSTRACTSURFACE> }
+    -- *Timer# in ~beta/postwimp/foundation/private/glutsystemenv_unixbody
+    { Surrounding object 0x8ea1e60, proto 0x8445e62 * [ast: 0x0001,0x0098] <T9BASICSCHEDULER> }
+  item <*>scan# in ~beta/postwimp/foundation/gtksurface
+  { PC  0x81a7411 <M4GTKSURFACE+0x49>, object 0x8ea0c60, proto 0x8451ffc * [ast: 0x0001,0x001b] <T4GTKSURFACE> }
+    -- check# in ~beta/postwimp/foundation/gtksurface
+    { Surrounding object 0x8ea0ca0, proto 0x8451fcc check# [ast: 0x0001,0x0011] <T3GTKSURFACE> }
+  item *<scan#> in ~beta/containers/container
+  { PC  0x82d9fd5 <M7CONTAINER+0x96>, object 0x8ea0c60, proto 0x8555c1e scan# [ast: 0x0001,0x0073] <T7CONTAINER> }
+    -- timers#list#container# in ~beta/postwimp/foundation/gtksurface
+    { Surrounding object 0x8ea1000, proto 0x8451f50 timers# [ast: 0x0001,0x0009] <T2GTKSURFACE> }
+  item <thescanner#>theScanner# in ~beta/containers/list
+  { PC  0x82d90f4 <M26LIST+0x109>, object 0x8ea1e80, proto 0x8555434 thescanner# [ast: 0x0001,0x0179] <T26LIST> }
+    -- timers#list#container# in ~beta/postwimp/foundation/gtksurface
+    { Surrounding object 0x8ea1000, proto 0x8451f50 timers# [ast: 0x0001,0x0009] <T2GTKSURFACE> }
+  item thescanner#<theScanner#> in ~beta/containers/container
+  { PC  0x82d9f0d <M6CONTAINER+0x38>, object 0x8ea1e80, proto 0x8555be4 theScanner# [ast: 0x0001,0x005b] <T6CONTAINER> }
+    -- timers#list#container# in ~beta/postwimp/foundation/gtksurface
+    { Surrounding object 0x8ea1000, proto 0x8451f50 timers# [ast: 0x0001,0x0009] <T2GTKSURFACE> }
+  item *<scan#> in ~beta/containers/container
+  { PC  0x82d9fc9 <M7CONTAINER+0x8a>, object 0x8ea0c60, proto 0x8555c1e scan# [ast: 0x0001,0x0073] <T7CONTAINER> }
+    -- timers#list#container# in ~beta/postwimp/foundation/gtksurface
+    { Surrounding object 0x8ea1000, proto 0x8451f50 timers# [ast: 0x0001,0x0009] <T2GTKSURFACE> }
+  item <check#> in ~beta/postwimp/foundation/gtksurface
+  { PC  0x81a73b4 <M3GTKSURFACE+0x19>, object 0x8ea0ca0, proto 0x8451fcc check# [ast: 0x0001,0x0011] <T3GTKSURFACE> }
+    -- timers#list#container# in ~beta/postwimp/foundation/gtksurface
+    { Surrounding object 0x8ea1000, proto 0x8451f50 timers# [ast: 0x0001,0x0009] <T2GTKSURFACE> }
+  item <idle#>GCallBack# in ~beta/postwimp/foundation/gtksurface
+  { PC  0x81a6cb7 <M26GTKSURFACE+0x6f>, object 0x8ea0cb0, proto 0x8452320 idle# [ast: 0x0001,0x018f] <T26GTKSURFACE> }
+    -- GLUTSurface#Surface# in ~beta/postwimp/foundation/gtksurface
+    { Surrounding object 0x8ea0ee8, proto 0x8451e56 GLUTSurface# [ast: 0x0001,0x0003] <T1GTKSURFACE> }
+  item idle#<GCallBack#> in ~beta/postwimp/platform/gtk/glslib
+  { PC  0x81a75d8 <M18GLSLIB+0xa>, object 0x8ea0cb0, proto 0x8452938 GCallBack# [ast: 0x0001,0x0167] <T18GLSLIB> }
+    -- BETAENV-~ in ~beta/basiclib/betaenv
+    { Surrounding object 0x8ea0af8, proto 0x8441dd0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+  item <idle#>GCallBack# in ~beta/postwimp/foundation/gtksurface
+  { PC  0x81a6d11 <idle+0x5>, object 0x8ea0cb0, proto 0x8452320 idle# [ast: 0x0001,0x018f] <T26GTKSURFACE> }
+    -- GLUTSurface#Surface# in ~beta/postwimp/foundation/gtksurface
+    { Surrounding object 0x8ea0ee8, proto 0x8451e56 GLUTSurface# [ast: 0x0001,0x0003] <T1GTKSURFACE> }
+  [ EXTERNAL ACTIVATION PART ]
+  item <run#>run# in ~beta/postwimp/foundation/gtksurface
+  { PC  0x0 <<unknown>>, object 0x8ea1050, proto 0x845273a run# [ast: 0x0001,0x0454] <T52GTKSURFACE> }
+    -- GLUTSurface#Surface# in ~beta/postwimp/foundation/gtksurface
+    { Surrounding object 0x8ea0ee8, proto 0x8451e56 GLUTSurface# [ast: 0x0001,0x0003] <T1GTKSURFACE> }
+  item <attNext#>realValue# in ~beta/basiclib/private/basicsystemenvbody
+  { PC  0x83e7bb6 <M99ABSTRACTSURFACE+0xa>, object 0x8ea12d0, proto 0x84964b0 attNext# [ast: 0x0010,0x001a] <T2BASICSYSTEMENVPRIVATE> }
+    -- BASICSYSTEMENVPRIVATE-~ in ~beta/basiclib/private/basicsystemenvbody
+    { Surrounding object 0x8ea10d0, proto 0x84963b4 BASICSYSTEMENVPRIVATE-~ [ast: 0x0010,0x0001] <T1BASICSYSTEMENVPRIVATE> }
+  comp <BASICSCHEDULER-~> in ~beta/postwimp/foundation/private/glutsystemenv_unixbody
+  { PC  0x818f8f8 <M1BASICSCHEDULER+0x126>, object 0x8ea0e70, proto 0x8445c72 BASICSCHEDULER-~ [ast: 0x0001,0x0001] <T1BASICSCHEDULER> }
+    -- PROGRAM-~CPNWorkSpace#Workspace#World#SystemEnv#SysHead# in /users/cpntools/cpn2000/cpntools/cpntools
+    { Surrounding object 0x8e9fd98, proto 0x84975aa PROGRAM-~ [ast: 0x0001,0x0001] <T1PROGRAM> }
+
+  item <*> in ~beta/basiclib/betaenv
+  { PC  0x81a38b4 <M250BETAENV+0x94>, object 0x8ea0c10, proto 0x84443da * [ast: 0x0001,0x0c3c] <T250BETAENV> }
+    -- BETAENV-~ in ~beta/basiclib/betaenv
+    { Surrounding object 0x8ea0af8, proto 0x8441dd0 BETAENV-~ [ast: 0x0001,0x0001] <T1BETAENV> }
+  basic component in ~beta/basiclib/betaenv
+
+Legend:
+
+The above dumps show the dynamic call stack of invoked objects.
+Each dump starts at the object that was the current object when
+the error occurred and continues down towards the basic component.
+The descriptions have the following meaning:
+1. Items are shown in two lines, like this:
+      item <name#>pname1#pname2#pname3 in ifile
+        -- sname#spname1#spname2 in sfile
+   meaning that the item is an instance of the pattern "name" which
+   has prefix "pname1" which has prefix "pname2", etc. 
+   This item is defined in the file "ifile". 
+   The part of the prefix chain enclosed in "<" and ">" indicates
+   where in the action sequence the error occurred.
+   The line beginning with "--" shows the textually surrounding
+   pattern using the same notation.
+2. The descriptor names used in the above description will normally
+   have one or more "meta characters" appended. These mean:
+      #  The descriptor belongs to a pattern, e.g. P: (# ... #)
+      ~  Singular named descriptor, e.g. X: @(# ... #)
+      *  Singular unnamed descriptor, e.g. ... ; (# ... #) ; ...
+      -  Descriptor SLOT.
+3. Components are shown using a notation similar to that of items:
+      comp <name#>pname1#pname2#pname3 in cfile
+4. The bottommost component corresponding to the basic environment is
+   shown like an ordinary component, but indicated with
+      basic component <name#>pname1#pname2#pname3 in cfile
+5. In case the error occurred in some external code called from BETA,
+   the top of the call stack is shown as
+      [ EXTERNAL ACTIVATION PART ]
+6. In case the BETA code has called some external code which has in
+   turn called back into the BETA code, and the callback is still
+   active at the point of the error, the intermediate call stack part
+   is shown as
+      [ EXTERNAL ACTIVATION PART ]
+7. The section labeled "Low level information" can be avoided by
+      setenv BETART SimpleDump
+   before subsequent executions of the program.

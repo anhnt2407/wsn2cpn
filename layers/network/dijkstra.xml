@@ -1,0 +1,46 @@
+<configuration>
+ <name>dijkstra</name>
+ <layer>network</layer>
+ <description>This protocol is based on Disjkstra algoritm.Foram criados 5 perfies:
+Profile 001 - rotea os pacotes dos nós até a Base Station;
+Profile 002 - Base Station envia uma mensagem para todos os nós da rede;
+Profile 003 - Troca de mensagem entre os nós para descobrir qual é a menor distancia;
+</description>
+
+ <variable_list>
+
+   <property>
+    <name>bs_time</name>
+    <type>INT</type>
+    <default>1</default>
+    <description>It define (in seconds) the time that Base Station should send a message.</description>
+   </property>
+
+   <property>
+    <name>node_time</name>
+    <type>INT</type>
+    <default>2</default>
+    <description>It define max time that Base Station should send a message.</description>
+   </property>
+
+ </variable_list>
+
+ <node_propreties>
+
+  <property>
+   <name>bsDistance</name>
+   <type>INT</type>
+   <default>99999</default>
+   <description>it define distance between this node and sink node.</description>
+  </property>
+
+  <property>
+   <name>nodeNext</name>
+   <type>INT</type>
+   <default>0</default>
+   <description>how is the next node when a what send a message.</description>
+  </property>
+
+ </node_propreties>
+
+</configuration>

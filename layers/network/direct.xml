@@ -1,0 +1,24 @@
+<configuration>
+ <name>direct</name>
+ <layer>network</layer>
+ <description>Direct protocol is a one hop protocol.</description>
+
+ <variable_list>
+
+   <property>
+    <name>net_time</name>
+    <type>INT</type>
+    <default>1</default>
+    <description>It define (in seconds) the time that Base Station should send a message.</description>
+   </property>
+
+   <property>
+    <name>net_max_time</name>
+    <type>INT</type>
+    <default>5</default>
+    <description>It define max time that Base Station should send a message.</description>
+   </property>
+
+ </variable_list>
+
+</configuration>
