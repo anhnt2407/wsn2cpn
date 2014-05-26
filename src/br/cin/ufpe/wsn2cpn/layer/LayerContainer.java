@@ -19,13 +19,15 @@ public class LayerContainer
 
     private LayerContainer()
     {
-        layerMap = new HashMap<String, List<String>>();
+        layerMap = new HashMap<>();
     }
 
     public static LayerContainer getInstance()
     {
         if( instance == null )
         {
+            System.out.println( "LAYER PATH: " + PATH );
+            
             instance = new LayerContainer();
             instance.discoveryLayers();
         }
@@ -33,16 +35,16 @@ public class LayerContainer
         return instance;
     }
 
-    private void discoveryLayers()
+    public void discoveryLayers()
     {
         layerMap.put( "mac"         , buildLayerList( PATH + "mac/" )         );
         layerMap.put( "network"     , buildLayerList( PATH + "network/" )     );
         layerMap.put( "application" , buildLayerList( PATH + "application/" ) );
     }
 
-    private List<String> buildLayerList(String dirname)
+    private List<String> buildLayerList( String dirname )
     {
-        List<String> layerList = new ArrayList<String>();
+        List<String> layerList = new ArrayList<>();
         File dir = new File( dirname );
 
         for( String subfile : dir.list() )
@@ -77,8 +79,8 @@ public class LayerContainer
         String filename = PATH + layer_name + "/" + model_name + ".cpn";
 
         LayerModelOpen opener = new LayerModelOpen();
-        opener.process( filename , layer_name + " layer" );
-
+        opener.process( filename ); //layer_name + " layer"
+        
         return opener;
     }
 

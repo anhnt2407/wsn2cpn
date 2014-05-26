@@ -31,8 +31,8 @@ public abstract class WsnCpnExecute
     {
         int total = topology.getNodeMap().size();
 
-        Map<Integer,Node> nodeMap = new HashMap<Integer, Node>();
-        List<Integer> idExtraList = new ArrayList<Integer>();
+        Map<Integer,Node> nodeMap = new HashMap<>();
+        List<Integer> idExtraList = new ArrayList<>();
 
         //identifica quais IDs estao acima do ID MAXIMO (que é o total);
         for( Node node : topology.getNodeMap().values() )
@@ -48,7 +48,7 @@ public abstract class WsnCpnExecute
         }
 
         //Os nos sensores com IDs acima do ID MAXIMO terao outros IDs
-        relationMap = new HashMap<Integer, Integer>();
+        relationMap = new HashMap<>();
         for( int i = 1; !idExtraList.isEmpty() ; i++ )
         {
             if( !nodeMap.containsKey( i ) )

@@ -4,6 +4,7 @@ import br.cin.ufpe.wsn2cpn.debug.ConsoleDebug;
 import br.cin.ufpe.wsn2cpn.execute.AccessCpnSingleExecute;
 import br.cin.ufpe.wsn2cpn.report.ReportManager;
 import java.util.List;
+import org.cpntools.accesscpn.engine.highlevel.HighLevelSimulator;
 
 /**
  *

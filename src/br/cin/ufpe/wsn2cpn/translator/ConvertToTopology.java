@@ -105,11 +105,12 @@ public class ConvertToTopology
             node.setId( id );
         }
 
-        corrigirParametro( node );
+        //corrigirParametro( node );
         
         return node;
     }
 
+    @Deprecated
     private void corrigirParametro( Node node )
     {
         corrigirParamentro( node , "pos.x" , "X" );
@@ -119,6 +120,7 @@ public class ConvertToTopology
         corrigirParamentro( node , "y" , "Y" );
     }
     
+    @Deprecated
     private void corrigirParamentro( Node node , String before , String after )
     {
         String value = node.getProperties().remove( before );

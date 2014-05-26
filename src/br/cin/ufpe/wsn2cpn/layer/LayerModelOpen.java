@@ -19,10 +19,10 @@ public class LayerModelOpen
 
     public LayerModelOpen()
     {
-        profileList = new LinkedList<Block>();
+        profileList = new LinkedList<>();
     }
 
-    public void process( String filename , String layer ) throws Exception
+    public void process( String filename ) throws Exception
     {
         CpnLoad loader = new CpnLoad( filename );
         cpn = loader.getCpn();

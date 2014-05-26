@@ -25,6 +25,7 @@ public class WsnFileSave
 
         processConfiguration( topology.getConfigurationMap() );
         processVariable( topology.getVariableMap() );
+        processRegion( topology.getRegionMap() );
         processNode( topology.getNodeMap().values() );
 
         builder.append( "</topology>" );
@@ -54,6 +55,28 @@ public class WsnFileSave
         builder.append( " </variables>\n\n" );
     }
 
+    private void processRegion( Map<Integer,Region> regionMap )
+    {
+        builder.append( " <regions>\n" );
+        
+        for( Region region : regionMap.values() )
+        {
+            builder.append("  <region>\n" );
+            
+            builder.append( "    <id>" ).append( region.getX() ).append( "</id>\n" );
+            builder.append( "    <x>" ).append( region.getX() ).append( "</x>\n" );
+            builder.append( "    <y>" ).append( region.getX() ).append( "</y>\n" );
+            builder.append( "    <width>" ) .append( region.getWidth() ) .append( "</width>\n" );
+            builder.append( "    <height>" ).append( region.getHeight() ).append( "</height>\n" );
+            builder.append( "    <description>" ).append( region.getDescrition()).append( "</description>\n" );
+            builder.append( "    <nodes>" ) .append( region.getSensorNodes() ).append( "</nodes>\n" );
+            
+            builder.append( "  </region>\n\n" );
+        }
+
+        builder.append( " </regions>\n\n" );
+    }
+    
     private void processNode( Collection<Node> nodeCollection )
     {
         builder.append( " <nodes>\n\n" );

@@ -11,13 +11,14 @@ import java.util.Map.Entry;
  */
 public class Topology implements Serializable
 {
-    private Map<String,String> configurationMap;
-    private Map<String,String> variableMap;
-    private Map<Integer,Node> nodeMap;
+    private Map<String,String>  configurationMap;
+    private Map<String,String>  variableMap;
+    private Map<Integer,Region> regionMap;
+    private Map<Integer,Node>   nodeMap;
     
     public Topology()
     {
-        configurationMap = new HashMap<String, String>();
+        configurationMap = new HashMap<>();
         configurationMap.put( "dependability_link"        , "1.0" );
         configurationMap.put( "dependability_application" , "1.0" );
         configurationMap.put( "dependability_hardware"    , "1.0" );
@@ -25,9 +26,9 @@ public class Topology implements Serializable
         configurationMap.put( "dependability_batteryMax"  , "100" );
         configurationMap.put( "dependability_batteryMin"  , "0.0" );
         
-        variableMap = new HashMap<String, String>();
-        
-        nodeMap = new HashMap<Integer, Node>();
+        variableMap = new HashMap<>();
+        regionMap   = new HashMap<>();
+        nodeMap     = new HashMap<>();
     }
 
     public Map<String, String> getConfigurationMap()
@@ -35,7 +36,7 @@ public class Topology implements Serializable
         return configurationMap;
     }
 
-    public void setConfigurationMap(Map<String, String> configurationMap)
+    public void setConfigurationMap( Map<String, String> configurationMap )
     {
         this.configurationMap = configurationMap;
     }
@@ -45,7 +46,7 @@ public class Topology implements Serializable
         return nodeMap;
     }
 
-    public void setNodeMap(Map<Integer, Node> nodeMap)
+    public void setNodeMap( Map<Integer, Node> nodeMap )
     {
         this.nodeMap = nodeMap;
     }
@@ -55,11 +56,53 @@ public class Topology implements Serializable
         return variableMap;
     }
 
-    public void setVariableMap(Map<String,String> map)
+    public void setVariableMap( Map<String,String> map )
     {
         this.variableMap = map;
     }
 
+    public Map<Integer, Region> getRegionMap()
+    {
+        return regionMap;
+    }
+
+    public void setRegionMap( Map<Integer, Region> regionMap )
+    {
+        this.regionMap = regionMap;
+    }
+
+//    IT WILL BE USED WHEN CLASS REGION NO ALLOWING SET NODES    //
+//    
+//    public List<Integer> getRegionNodeList( int regionId )
+//    {
+//        Region region = regionMap.get( regionId );
+//        
+//        List<Integer> list = new ArrayList<>();
+//        for( Node node : getNodeMap().values() )
+//        {
+//            if( isInside( region , node ) )
+//            {
+//                list.add( node.getId() );
+//            }
+//        }
+//        
+//        return list;
+//    }
+//    
+//    private boolean isInside( Region region , Node node )
+//    {
+//        int X = Integer.parseInt( node.getProperties().get( "X" ) );
+//        int Y = Integer.parseInt( node.getProperties().get( "Y" ) );
+//        
+//        boolean insideX = region.getX() >= X 
+//                          && X < ( region.getX() + region.getWidth()  );
+//        
+//        boolean insideY = region.getY() >= Y 
+//                          && Y < ( region.getY() + region.getHeight() );
+//        
+//        return insideX && insideY;
+//    }
+    
     @Override
     public String toString()
     {
@@ -90,4 +133,5 @@ public class Topology implements Serializable
 
         return txt;
     }
+    
 }

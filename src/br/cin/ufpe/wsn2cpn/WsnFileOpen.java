@@ -2,6 +2,7 @@ package br.cin.ufpe.wsn2cpn;
 
 import org.w3c.dom.Node;
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 import org.w3c.dom.Document;
 import javax.xml.parsers.DocumentBuilder;
@@ -45,6 +46,10 @@ public class WsnFileOpen
             {
                 processVariables( nodeXml );
             }
+            else if( "regions".equalsIgnoreCase( nodeXml.getNodeName() ) )
+            {
+                processRegions( nodeXml.getChildNodes() );
+            }
             else if( "nodes".equalsIgnoreCase(nodeXml.getNodeName() ) )
             {
                 processNodes( nodeXml );
@@ -81,6 +86,76 @@ public class WsnFileOpen
         }
     }
 
+    private void processRegions( NodeList nodeXml ) throws Exception
+    {
+        Map<Integer,Region> map = new HashMap<>();
+        
+        for( int i = 0; i < nodeXml.getLength(); i++ )
+        {
+            Node parameterNodeXml = nodeXml.item( i );
+            
+            if( "region".equalsIgnoreCase( parameterNodeXml.getNodeName() ) )
+            {
+                Region region = getRegion( parameterNodeXml );
+                map.put( region.getRegionId() , region );
+            }
+        }
+        
+        topology.setRegionMap( map );
+    }
+    
+    private Region getRegion( Node nodeXml ) throws Exception
+    {
+        Region region = new Region();
+        
+        NodeList parameterXml = nodeXml.getChildNodes();
+        for( int i = 0; i < parameterXml.getLength(); i++ )
+        {
+            Node parameterNodeXml = parameterXml.item( i );
+
+            if( "id".equalsIgnoreCase( parameterNodeXml.getNodeName() ) )
+            {
+                int id = Integer.parseInt( getString( parameterNodeXml ) );
+                region.setRegionId( id );
+            }
+            else if( "x".equalsIgnoreCase( parameterNodeXml.getNodeName() ) )
+            {
+                int id = Integer.parseInt( getString( parameterNodeXml ) );
+                region.setX( id );
+            }
+            else if( "y".equalsIgnoreCase( parameterNodeXml.getNodeName() ) )
+            {
+                int id = Integer.parseInt( getString( parameterNodeXml ) );
+                region.setY( id );
+            }
+            else if( "width".equalsIgnoreCase( parameterNodeXml.getNodeName() ) )
+            {
+                int id = Integer.parseInt( getString( parameterNodeXml ) );
+                region.setWidth( id );
+            }
+            else if( "height".equalsIgnoreCase( parameterNodeXml.getNodeName() ) )
+            {
+                int id = Integer.parseInt( getString( parameterNodeXml ) );
+                region.setHeight( id );
+            }
+            else if( "description".equalsIgnoreCase( parameterNodeXml.getNodeName() ) )
+            {
+                region.setDescrition( getString( parameterNodeXml ) );
+            }
+            else if( "nodes".equalsIgnoreCase( parameterNodeXml.getNodeName() ) )
+            {
+                region.setNodeList( getString( parameterNodeXml ) );
+            }
+        }
+        
+        return region;
+    }
+    
+    private String getString( Node nodeXml )
+    {
+        return nodeXml.getChildNodes().item( 0 ).getNodeValue();
+    }
+    
     private void processNodes(Node nodesXml)
     {
         NodeList childrenXml = nodesXml.getChildNodes();

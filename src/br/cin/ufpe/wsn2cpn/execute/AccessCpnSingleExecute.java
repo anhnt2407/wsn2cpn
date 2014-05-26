@@ -76,7 +76,7 @@ public class AccessCpnSingleExecute extends WsnCpnExecute
         HighLevelSimulator.DEBUG_SIMULATOR = true;
         simulator = HighLevelSimulator.getHighLevelSimulator();
 
-        debug.println("Verificando a sintaxe...");
+        System.out.println("Verificando a sintaxe...");
         checker = new Checker( petriNet , null , simulator );
         checker.checkEntireModel();
 
@@ -90,8 +90,6 @@ public class AccessCpnSingleExecute extends WsnCpnExecute
         
         List<Topology> result = startSimulation();
         desfazerSequencia( result );
-
-        simulator.destroy();
 
         return result;
     }
@@ -211,5 +209,14 @@ public class AccessCpnSingleExecute extends WsnCpnExecute
         return this.run;
     }
     
+    public void endSimulation()
+    {
+        simulator.destroy();
+        
+        checker = null;
+        petriNet = null;
+        debug = null;
+        simulator = null;
+    }
 }
 

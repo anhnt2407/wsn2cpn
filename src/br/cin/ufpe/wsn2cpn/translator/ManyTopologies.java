@@ -183,18 +183,41 @@ public class ManyTopologies
     
     private List<Topology> createTopologyList() throws CloneNotSupportedException
     {
-        List<Topology> topologyList = new ArrayList<Topology>();
-        List<List<Integer>> xList = new LinkedList<List<Integer>>();
-        List<List<Integer>> yList = new LinkedList<List<Integer>>();
-        List<List<Integer>> rList = new LinkedList<List<Integer>>();
+        List<Topology> topologyList = new ArrayList<>();
+        List<List<Integer>> xList = new LinkedList<>();
+        List<List<Integer>> yList = new LinkedList<>();
+        List<List<Integer>> rList = new LinkedList<>();
         
         for( int id = 1 ; id <= topology.getNodeMap().size() ; id++ )
         {
             Node n = topology.getNodeMap().get( id );
             
+            if( !n.getProperties().containsKey( "X_list" ) )
+            {
+                String X = n.getProperties().get( "X" );
+                n.getProperties().put( "X_list" , "[" + X + "]" );
+            }
+            
+            if( !n.getProperties().containsKey( "Y_list" ) )
+            {
+                String Y = n.getProperties().get( "Y" );
+                n.getProperties().put( "Y_list" , "[" + Y + "]" );
+            }
+            
+            if( !n.getProperties().containsKey( "range_list" ) )
+            {
+                String range = n.getProperties().get( "range" );
+                n.getProperties().put( "range_list" , "[" + range + "]" );
+            }
+            
             xList.add( convertToList( n.getProperties().get( "X_list" ) ) );
             yList.add( convertToList( n.getProperties().get( "Y_list" ) ) );
             rList.add( convertToList( n.getProperties().get( "range_list" ) ) );
+        }
+        
+        if( !topology.getConfigurationMap().containsKey( "size" ) )
+        {
+            topology.getConfigurationMap().put( "size" , "1" );
         }
         
         topologySize = Integer.parseInt( topology.getConfigurationMap().get( "size" ) );
