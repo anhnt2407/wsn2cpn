@@ -22,7 +22,7 @@ public class RandomBsDistanceNodeDeploy extends NodeDeploy
     @Override
     public Map<String,String> getParameterMap()
     {
-        Map<String,String> paramMap = new HashMap<String,String>();
+        Map<String,String> paramMap = new HashMap<>();
         paramMap.put( "min" , "10" );
         paramMap.put( "max" , "50" );
         

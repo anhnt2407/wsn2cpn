@@ -44,6 +44,11 @@ public abstract class NodeDeploy implements Cloneable
     {
         this.nodeSize = nodeSize;
     }
+
+    public int getNodeSize()
+    {
+        return nodeSize;
+    }
     
     public String getName()
     {

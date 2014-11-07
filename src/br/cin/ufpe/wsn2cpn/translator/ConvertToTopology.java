@@ -34,8 +34,8 @@ public class ConvertToTopology
         for( Node node : nodeList )
         {
             double energy = energyList.get( node.getId() - 1 );
-            node.getProperties().put( "energy"      , energy + "" );
-            top.getNodeMap().put( node.getId() , node );
+            node.getProperties().put( "energy"     , energy + "" );
+            top.getNodeMap()    .put( node.getId() , node        );
         }
         
         return top;
@@ -51,13 +51,11 @@ public class ConvertToTopology
     
     private List<Double> threatGlobrefList( String name ) throws Exception
     {
-        String crude = simulator.evaluate( name );
-        String token = getTokenValue( crude ).replaceAll( "~" , "-" );
-        List<String> tokenValueList = getTokenValueList( token );
-
-        List<Double> list = new ArrayList<>();
-        for( String value : tokenValueList )
+        List<String> tokenValueList = getTokenValueFromList( name );
+        List<Double> list           = new ArrayList<>();
+        for( String valueCrude : tokenValueList )
         {
+            String value = valueCrude.replace( "~" , "-" );
             list.add( Double.parseDouble( value ) );
         }
 
@@ -66,10 +64,7 @@ public class ConvertToTopology
 
     private List<Node> threatNodeList( String name ) throws Exception
     {
-        String crude = simulator.evaluate( name );
-        String tokenClear = getTokenValue( crude );
-        List<String> tokenClearList = getTokenValueList( tokenClear );
-
+        List<String> tokenClearList = getTokenValueFromList( name );
         return node( tokenClearList );
     }
     
@@ -146,7 +141,8 @@ public class ConvertToTopology
         return token;
     }
 
-    public List<String> getTokenValueList(String tokenStr)
+    @Deprecated
+    private List<String> getTokenValueList(String tokenStr)
     {
         tokenStr = clear( tokenStr , '[' , ']' );
         List<String> tokenList = new ArrayList<>();
@@ -163,6 +159,28 @@ public class ConvertToTopology
         return tokenList;
     }
 
+    public List<String> getTokenValueFromList( String tokenStr ) throws Exception
+    {
+        // ----------- size
+        String sizeCrude = simulator.evaluate( "length (" + tokenStr + ")" );
+        String sizeStr   = getTokenValue     ( sizeCrude );
+        int    size      = Integer.parseInt  ( sizeStr   );
+        
+        // ----------- get node individually
+        List<String> tokenList = new ArrayList<>();
+        for( int i = 0 ; i <  size ; i++ )
+        {
+            String expression = "List.nth (" + tokenStr + "," + i + ")";
+            
+            String crude    = simulator.evaluate( expression );
+            String valueStr = getTokenValue( crude );
+            
+            tokenList.add( valueStr );
+        }
+        
+        return tokenList;
+    }
+    
     private Map<String,String> getProprities(String tokenStr)
     {
         Map<String,String> prop = new HashMap<>();

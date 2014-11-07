@@ -13,11 +13,11 @@ public class NodeDeployMain
     
     public static void main(String args[]) throws Exception
     {
-        NodeDeploy deploy = NodeDeployFactory.getNodeDeploy( "Random Uniform" );
+        NodeDeploy deploy = NodeDeployFactory.getNodeDeploy( "Grid" );
         
-        deploy.setLocation( 0 , 0 );
-        deploy.setSize( 100 , 100 );
-        deploy.setNodeSize( 5 );
+        deploy.setLocation(   0 ,   0 );
+        deploy.setSize    ( 100 , 100 );
+        deploy.setNodeSize( 500 );
         
         Topology top = getTopology();
         top = deploy.create( top );

@@ -20,9 +20,11 @@ public class NodeDeployFactory
     
     private void init()
     {
-        deployMap = new HashMap<String, NodeDeploy>();
-        addNodeDeploy( new RandomNodeDeploy() );
-        addNodeDeploy( new RandomUniformNodeDeploy() );
+        deployMap = new HashMap<>();
+        
+        addNodeDeploy( new GridNodeDeploy()             );
+        addNodeDeploy( new RandomNodeDeploy()           );
+        addNodeDeploy( new RandomUniformNodeDeploy()    );
         addNodeDeploy( new RandomBsDistanceNodeDeploy() );
     }
     

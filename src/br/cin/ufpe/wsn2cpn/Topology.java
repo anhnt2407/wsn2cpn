@@ -19,12 +19,12 @@ public class Topology implements Serializable
     public Topology()
     {
         configurationMap = new HashMap<>();
-        configurationMap.put( "dependability_link"        , "1.0" );
-        configurationMap.put( "dependability_application" , "1.0" );
-        configurationMap.put( "dependability_hardware"    , "1.0" );
-        configurationMap.put( "dependability_tinyos"      , "1.0" );
-        configurationMap.put( "dependability_batteryMax"  , "100" );
-        configurationMap.put( "dependability_batteryMin"  , "0.0" );
+        configurationMap.put( "reliability_link"        , "1.0" );
+        configurationMap.put( "reliability_application" , "1.0" );
+        configurationMap.put( "reliability_hardware"    , "1.0" );
+        configurationMap.put( "reliability_tinyos"      , "1.0" );
+        configurationMap.put( "reliability_batteryMax"  , "100" );
+        configurationMap.put( "reliability_batteryMin"  , "0.0" );
         
         variableMap = new HashMap<>();
         regionMap   = new HashMap<>();
